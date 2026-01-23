@@ -302,3 +302,12 @@ class StateChange(Enum):
     msgType = "str"
 
 ### It will have this format: {"WarningName":"name1", "WarningID": 1}
+
+
+##############################    Custom Messages  ###################################
+
+class MenjaUgao(Enum):
+    Queue = "General"
+    Owner = "testSteering"
+    msgID = 1
+    msgType = "str"
