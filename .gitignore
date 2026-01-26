@@ -5,3 +5,4 @@ __pycache__
 /src/dashboard/frontend/node_modules
 
 output_video*
+.angular/
