@@ -5,7 +5,7 @@ from typing import Tuple
 # Using dataclass for immutable configuration
 @dataclass(frozen=True) 
 class Gamma:
-    gamma: float = 1.5
+    gamma: float = 1
     lut: None | list = None 
 #########################################################
 
@@ -19,10 +19,10 @@ class Canny:
 @dataclass(frozen=True)
 class ROI:
 # Trapezoid ROI corners (x_ratio, y_ratio)
-    roi_bottom_left: Tuple[float, float] = (0.1, 0.75)
-    roi_bottom_right: Tuple[float, float] = (0.9, 0.75)
-    roi_top_right: Tuple[float, float] = (0.7, 0.6)
-    roi_top_left: Tuple[float, float] = (0.3, 0.6)
+    roi_bottom_left: Tuple[float, float] = (0, 0.95)
+    roi_bottom_right: Tuple[float, float] = (1, 0.95)
+    roi_top_right: Tuple[float, float] = (0.7, 0.5)
+    roi_top_left: Tuple[float, float] = (0.3, 0.5)
 #########################################################
 
 ############# Parameters for Postprocessing #############
@@ -36,7 +36,7 @@ class Hough:
 
 @dataclass(frozen=True)
 class ROI_Y:
-    roi_top_y: float = 0.6
+    roi_top_y: float = 0.4
     roi_bottom_y: float = 0.95
 #########################################################
 

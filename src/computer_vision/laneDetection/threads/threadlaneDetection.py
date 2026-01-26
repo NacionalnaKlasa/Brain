@@ -81,7 +81,7 @@ class threadlaneDetection(ThreadWithStop):
 
         # # Postprocessing
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg, frame.shape[1])
-        # steering = self.postprocessing.p_control(lane_center, frame.shape[1])
+        #steering = self.postprocessing.p_control(lane_center, frame.shape[1])
 
         # self.frame_send(gamma)
 

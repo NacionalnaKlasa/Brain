@@ -1,9 +1,11 @@
 import cv2
+import numpy as np
 
 class PostprocessingFrame:
     def __init__(self, config):
        self.roi_y_top = config.ROI_Y.roi_top_y
        self.roi_y_bottom = config.ROI_Y.roi_bottom_y
+       self.roi = config.ROI
 
     def calculate_lane_center(self, left_line, right_line, frame_width):
         """Calculate lane center. If one line missing, assume average lane width"""
@@ -40,5 +42,14 @@ class PostprocessingFrame:
         roi_bottom = int(h * self.roi_y_bottom)
         
         # Draw rectangle around ROI
-        cv2.rectangle(frame, (0, roi_top), (w, roi_bottom), color, thickness)
+        roi_points = np.array([
+            [int(w * self.roi.roi_bottom_left[0]), roi_bottom],
+            [int(w * self.roi.roi_bottom_right[0]), roi_bottom],
+            [int(w * self.roi.roi_top_right[0]), roi_top],
+            [int(w * self.roi.roi_top_left[0]), roi_top]
+        ], dtype=np.int32)
+
+
+        cv2.polylines(frame, [roi_points], isClosed=True, color=(0,255,255), thickness=2)
+        #cv2.rectangle(frame, (int(w * self.roi.roi_bottom_left[0]), roi_top), (int(w * self.roi.roi_bottom_right[0]), roi_bottom), color, thickness)
         return frame
