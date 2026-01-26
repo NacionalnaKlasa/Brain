@@ -108,7 +108,7 @@ class threadflask_app(ThreadWithStop):
 
     def stop(self):
         print("Stopping flask app...")
-        self.flask_thread.stop()
+        #self.flask_thread.stop()
         kill_process_on_port(port=self.port)
         super(threadflask_app, self).stop()
 
