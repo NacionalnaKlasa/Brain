@@ -315,5 +315,5 @@ class MenjaUgao(Enum):
 class laneDetection(Enum):
     Queue = "General"
     Owner = "threadLaneDetection"
-    msgID = 2
+    msgID = 1
     msgType = "str"

@@ -32,3 +32,13 @@ class PostprocessingFrame:
         h = frame.shape[0]
         cv2.line(frame, (lane_center, int(h*self.roi_y_top)), (lane_center, int(h*self.roi_y_bottom)), color, thickness)
         return frame
+    
+    def draw_roi(self, frame, color=(0,255,0), thickness=2):
+        """Draw ROI rectangle on frame"""
+        h, w = frame.shape[:2]
+        roi_top = int(h * self.roi_y_top)
+        roi_bottom = int(h * self.roi_y_bottom)
+        
+        # Draw rectangle around ROI
+        cv2.rectangle(frame, (0, roi_top), (w, roi_bottom), color, thickness)
+        return frame

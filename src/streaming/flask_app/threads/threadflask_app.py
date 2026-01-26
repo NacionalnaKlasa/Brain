@@ -1,5 +1,6 @@
+import sys
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera)
+from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -14,7 +15,12 @@ import os
 
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 app = Flask(__name__, template_folder=template_dir)
+
+lastFrameRawDataEvent = threading.Event()
 lastFrameRawData = None
+
+lastLaneDetectionDataEvent = threading.Event()
+lastLaneDetectionData = None
 
 @app.route('/')
 def index():
@@ -22,22 +28,49 @@ def index():
 
 @app.route('/stream')
 def stream():
-    response = Response(getFrame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    response = Response(getFrame_serialStream(), mimetype='multipart/x-mixed-replace; boundary=frame')
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
 
-def getFrame():
+@app.route('/lane_detection')
+def lane_detection():
+    response = Response(getFrame_laneDetectionStream(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
+def getFrame_serialStream():
     global lastFrameRawData
 
     frame_bytes = None
     while True:
+        lastFrameRawDataEvent.wait()
+        lastFrameRawDataEvent.clear()
         if frame_bytes == lastFrameRawData:
-            time.sleep(1/60)
             continue
 
         frame_bytes = lastFrameRawData
+        
+        if frame_bytes == None:
+            continue
+
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes  + b'\r\n')
+
+def getFrame_laneDetectionStream():
+    global lastLaneDetectionData
+
+    frame_bytes = None
+    while True:
+        lastLaneDetectionDataEvent.wait()
+        lastLaneDetectionDataEvent.clear()
+        if frame_bytes == lastLaneDetectionData:
+            continue
+
+        frame_bytes = lastLaneDetectionData
         
         if frame_bytes == None:
             continue
@@ -102,6 +135,7 @@ class threadflask_app(ThreadWithStop):
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
         self.CameraReceive = messageHandlerSubscriber(self.queuesList, serialCamera, 'lastOnly', True)
+        self.laneDetection = messageHandlerSubscriber(self.queuesList, laneDetection, 'lastOnly', True)
 
     def state_change_handler(self):
         pass
@@ -114,6 +148,7 @@ class threadflask_app(ThreadWithStop):
 
     def thread_work(self):
         global lastFrameRawData
+        global lastLaneDetectionData
 
         if self.test == 0:
             print("Flask app THREAD WORK")
@@ -122,3 +157,9 @@ class threadflask_app(ThreadWithStop):
         rec = self.CameraReceive.receive()
         if rec is not None:
             lastFrameRawData = base64.b64decode(rec)
+            lastFrameRawDataEvent.set()
+
+        rec = self.laneDetection.receive()
+        if rec is not None:
+            lastLaneDetectionData = base64.b64decode(rec)
+            lastLaneDetectionDataEvent.set()

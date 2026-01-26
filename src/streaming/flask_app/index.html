@@ -1,9 +1,79 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Video Streaming</title>
-  </head>
-  <body>
-    <h1>Video Streaming</h1>
-    <img src="{{ url_for('stream') }}">
-  </body>
+<head>
+    <title>Dashboard Video Stream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Glavni kontejner - Mreža (Grid) */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 kolone jednake širine */
+            gap: 20px; /* Razmak između videa */
+            max_width: 1200px;
+            margin: 0 auto; /* Centriraj grid na ekranu */
+        }
+
+        /* Stil za svaku video karticu */
+        .video-card {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .video-card h3 {
+            margin-top: 0;
+            color: #ddd;
+        }
+
+        /* Slika (stream) se prilagođava širini kartice */
+        .video-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Opciono: Responsive - na mobilnom prebaci na 1 kolonu */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Video Nadzor</h1>
+
+    <div class="video-grid">
+        
+        <!-- Stream 1 -->
+        <div class="video-card">
+            <h3>Glavna Kamera</h3>
+            <img src="{{ url_for('stream') }}" alt="Serial camera">
+        </div>
+
+        <!-- Stream 2 (Dodaj pravi URL kad ga napraviš) -->
+        <div class="video-card">
+            <h3>Lores / Lane Detection</h3>
+            <!-- Primer: Ako imaš drugu rutu, npr. @app.route('/stream2') -->
+            <img src="{{ url_for('lane_detection') }}" alt="Lane detection camera"> 
+        </div>
+
+    </div>
+
+</body>
 </html>

@@ -47,7 +47,6 @@ class threadlaneDetection(ThreadWithStop):
     def _strToFrame(self, frame):
         frame = base64.b64decode(frame)
         frame = np.frombuffer(frame, dtype=np.uint8)
-
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
         return frame
 
@@ -55,7 +54,8 @@ class threadlaneDetection(ThreadWithStop):
         return self.cameraReceive.receive()
 
     def frame_send(self, frame):
-        frame = base64.b64encode(frame).decode('utf-8')
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame = base64.b64encode(buffer).decode('utf-8')
         self.cameraSender.send(frame)
 
     def thread_work(self):
@@ -73,21 +73,22 @@ class threadlaneDetection(ThreadWithStop):
         # Preprocessing
         gamma = self.preprocessing.apply_gamma(frame)
 
-        # Processing
+        # # Processing
         edges = self.processing.apply_canny(gamma)
         roi = self.processing.apply_roi(edges)
         lines = self.processing.apply_hough(roi)
         left_avg, right_avg = self.processing.average_lines(lines, frame.shape[1])
 
-        # Postprocessing
+        # # Postprocessing
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg, frame.shape[1])
         # steering = self.postprocessing.p_control(lane_center, frame.shape[1])
 
-        self.frame_send(frame)
+        # self.frame_send(gamma)
 
-        # Vizualization
-        # Not necessary for car
+        # # Vizualization
+        # # Not necessary for car
         vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg)
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
+        vis_frame = self.postprocessing.draw_roi(vis_frame)
 
         self.frame_send(vis_frame)
