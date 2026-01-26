@@ -73,6 +73,7 @@ from src.statemachine.systemMode import SystemMode
 
 from src.utils.testSteering.processtestSteering import processtestSteering
 from src.utils.testPosaljiUgao.processtestPosaljiUgao import processtestPosaljiUgao
+from src.computer_vision.laneDetection.processlaneDetection import processlaneDetection
 
 # ------ New component imports ends here ------#
 
@@ -139,6 +140,7 @@ processGateway.start()
 
 start_testPosaljiUgao_process = False
 start_testSteering_process = False
+start_laneDetection = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -177,6 +179,11 @@ if start_testPosaljiUgao_process:
     testPosaljiUgao_ready = Event()
     processtestPosaljiUgao = processtestPosaljiUgao(queueList, logging, testPosaljiUgao_ready, debugging = False)
     allProcesses.insert(0, processtestPosaljiUgao)
+
+if start_laneDetection:
+    laneDetection_ready = Event()
+    processlaneDetection = processlaneDetection(queueList, logging, laneDetection_ready, debugging = False)
+    allProcesses.insert(0, processlaneDetection)
 
 # ------ New component initialize ends here ------#
 
