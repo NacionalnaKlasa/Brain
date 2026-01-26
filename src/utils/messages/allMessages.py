@@ -311,3 +311,9 @@ class MenjaUgao(Enum):
     Owner = "testSteering"
     msgID = 1
     msgType = "str"
+
+class laneDetection(Enum):
+    Queue = "General"
+    Owner = "threadLaneDetection"
+    msgID = 2
+    msgType = "str"
