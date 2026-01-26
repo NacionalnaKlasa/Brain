@@ -31,13 +31,19 @@ class threadlaneDetection(ThreadWithStop):
     def state_change_handler(self):
         pass
 
+    def frame_receive(self):
+        return self.cameraReceive.receive()
+
+    def frame_send(self, frame):
+        print("Frame sent:", frame)
+
     def thread_work(self):
         
         if self.test == 0:
             print("TESTING LANE DETECTION")
             self.test += 1
 
-        rec = self.cameraReceive.receive()
+        rec = self.frame_receive()
         if rec is not None:
             if self.test < 10:
                 self.test += 1
