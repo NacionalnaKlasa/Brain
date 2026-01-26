@@ -73,6 +73,7 @@ from src.statemachine.systemMode import SystemMode
 
 from src.utils.testSteering.processtestSteering import processtestSteering
 from src.utils.testPosaljiUgao.processtestPosaljiUgao import processtestPosaljiUgao
+from src.streaming.flask_app.processflask_app import processflask_app
 
 # ------ New component imports ends here ------#
 
@@ -139,6 +140,7 @@ processGateway.start()
 
 start_testPosaljiUgao_process = False
 start_testSteering_process = False
+start_flask_app = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -177,6 +179,11 @@ if start_testPosaljiUgao_process:
     testPosaljiUgao_ready = Event()
     processtestPosaljiUgao = processtestPosaljiUgao(queueList, logging, testPosaljiUgao_ready, debugging = False)
     allProcesses.insert(0, processtestPosaljiUgao)
+
+if start_flask_app:
+    flask_app_ready = Event()
+    processflask_app = processflask_app(queueList, logging, flask_app_ready, debugging = False)
+    allProcesses.insert(0, processflask_app)
 
 # ------ New component initialize ends here ------#
 
