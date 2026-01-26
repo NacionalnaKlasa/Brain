@@ -74,6 +74,7 @@ from src.statemachine.systemMode import SystemMode
 from src.utils.testSteering.processtestSteering import processtestSteering
 from src.utils.testPosaljiUgao.processtestPosaljiUgao import processtestPosaljiUgao
 from src.streaming.flask_app.processflask_app import processflask_app
+from src.computer_vision.laneDetection.processlaneDetection import processlaneDetection
 
 # ------ New component imports ends here ------#
 
@@ -141,6 +142,7 @@ processGateway.start()
 start_testPosaljiUgao_process = False
 start_testSteering_process = False
 start_flask_app = True
+start_laneDetection = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -184,6 +186,11 @@ if start_flask_app:
     flask_app_ready = Event()
     processflask_app = processflask_app(queueList, logging, flask_app_ready, debugging = False)
     allProcesses.insert(0, processflask_app)
+
+if start_laneDetection:
+    laneDetection_ready = Event()
+    processlaneDetection = processlaneDetection(queueList, logging, laneDetection_ready, debugging = False)
+    allProcesses.insert(0, processlaneDetection)
 
 # ------ New component initialize ends here ------#
 
