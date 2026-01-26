@@ -1,14 +1,16 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetection)
+from src.utils.messages.allMessages import (serialCamera, laneDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
 import time
 import base64
-from config import Config
-from preprocessingFrame import PreprocessingFrame
-from processingFrame import ProcessingFrame 
-from postprocessingFrame import PostprocessingFrame
+import numpy as np
+import cv2
+from src.computer_vision.laneDetection.threads.config import Config
+from src.computer_vision.laneDetection.threads.preprocessingFrame import PreprocessingFrame
+from src.computer_vision.laneDetection.threads.processingFrame import ProcessingFrame 
+from src.computer_vision.laneDetection.threads.postprocessingFrame import PostprocessingFrame
 
 class threadlaneDetection(ThreadWithStop):
     """This thread handles laneDetection.
@@ -42,21 +44,29 @@ class threadlaneDetection(ThreadWithStop):
     def state_change_handler(self):
         pass
 
+    def _strToFrame(self, frame):
+        frame = base64.b64decode(frame)
+        frame = np.frombuffer(frame, dtype=np.uint8)
+
+        frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+        return frame
+
     def frame_receive(self):
         return self.cameraReceive.receive()
 
     def frame_send(self, frame):
-        frame = base64.b64encode(frame)
+        frame = base64.b64encode(frame).decode('utf-8')
         self.cameraSender.send(frame)
 
     def thread_work(self):
         frame = self.frame_receive()
-        if frame is not None:
-            if self.test < 10:
-                self.test += 1
-                print("Primio sam sliku")
-        else:
-            pass
+        if frame is None:
+            return
+        
+        frame = self._strToFrame(frame=frame)
+        if frame is None:
+            print("Error while decoding image !")
+            return
 
         ##### Processing frame...
         
