@@ -32,7 +32,7 @@ class threadtestPosaljiUgao(ThreadWithStop):
 
     def thread_work(self):
         self.posaljiUgao.send(str(self.ugao))
-        if abs(self.ugao) >= 250:
+        if abs(self.ugao + self.increment) >= 250:
             self.increment = -self.increment
         self.ugao += self.increment
         time.sleep(1)

@@ -137,6 +137,9 @@ StateMachine.initialize_shared_state(queueList)
 processGateway = processGateway(queueList, logging)
 processGateway.start()
 
+start_testPosaljiUgao_process = False
+start_testSteering_process = False
+
 # ===================================== INITIALIZE PROCESSES ==================================
 
 # Initializing dashboard
@@ -165,13 +168,15 @@ allEvents.extend([camera_ready, serial_handler_ready, dashboard_ready])
 
 # ------ New component initialize starts here ------#
 
-testSteering_ready = Event()
-processtestSteering = processtestSteering(queueList, logging, testSteering_ready, debugging = False)
-allProcesses.insert(0, processtestSteering)
+if start_testSteering_process:
+    testSteering_ready = Event()
+    processtestSteering = processtestSteering(queueList, logging, testSteering_ready, debugging = False)
+    allProcesses.insert(0, processtestSteering)
 
-testPosaljiUgao_ready = Event()
-processtestPosaljiUgao = processtestPosaljiUgao(queueList, logging, testPosaljiUgao_ready, debugging = False)
-allProcesses.insert(0, processtestPosaljiUgao)
+if start_testPosaljiUgao_process:
+    testPosaljiUgao_ready = Event()
+    processtestPosaljiUgao = processtestPosaljiUgao(queueList, logging, testPosaljiUgao_ready, debugging = False)
+    allProcesses.insert(0, processtestPosaljiUgao)
 
 # ------ New component initialize ends here ------#
 

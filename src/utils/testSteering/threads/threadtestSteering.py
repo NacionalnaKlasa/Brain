@@ -56,7 +56,8 @@ class threadtestSteering(ThreadWithStop):
 
         rec = self.ReceiveSteeringAngle.receive()
         if rec is not None:
-            self.sendSteer(rec)
+            if rec != "MANUAL":     # Dodao Kole
+                self.sendSteer(rec)
 
         rec = self.DrivingMode.receive()
         if rec is not None:
