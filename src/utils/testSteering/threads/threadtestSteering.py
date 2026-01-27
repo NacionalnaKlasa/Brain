@@ -1,10 +1,9 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, Klem, SteerMotor, CurrentSteer, StateChange, MenjaUgao, SpeedMotor)
+from src.utils.messages.allMessages import (Klem, SteerMotor, CurrentSteer, StateChange, MenjaUgao, SpeedMotor, CurrentSpeed)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
 import time
-import sys
 
 class threadtestSteering(ThreadWithStop):
     """This thread handles testSteering.
@@ -19,73 +18,93 @@ class threadtestSteering(ThreadWithStop):
         self.logging = logging
         self.debugging = debugging
 
-        self.ugao = 0
-        self.test = 0
+        self.angle = 0
+        self.new_angle = 0
+
+        self.speed = 0
+        self.new_speed = 0
+
+        self.autoSpeed = 150
         self.running = False
 
         time.sleep(5)
-        self.subscribe()
-        # self.sendKlem()
-        # self.sendSteer()
+        self._init_subscribes()
+        self._init_senders()
         super(threadtestSteering, self).__init__()
 
-    def subscribe(self):
-        """Subscribes to the messages you are interested in"""
+    def _init_subscribes(self):
+        """Subscribes to recive the messages you are interested in."""
+        self.KlemReceive = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
+        self.currentSteeringAngle = messageHandlerSubscriber(self.queuesList, CurrentSteer, "lastOnly", True)
+        self.DrivingMode = messageHandlerSubscriber(self.queuesList, StateChange, "lastOnly", True)
+        self.calculatedSteeringAngle = messageHandlerSubscriber(self.queuesList, MenjaUgao, "lastOnly", True)
+        self.SpeedMotorReceive = messageHandlerSubscriber(self.queuesList, CurrentSpeed, "lastOnly", True)
+    
+    def _init_senders(self):
+        """Subscribes to send the messages you are interested in."""
         self.setKlemSender = messageHandlerSender(self.queuesList, Klem)
         self.setSteeringAngleSender = messageHandlerSender(self.queuesList, SteerMotor)
         self.SpeedMotorSend = messageHandlerSender(self.queuesList, SpeedMotor)
-
-        self.KlemReceive = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
-        self.SteeringAngle = messageHandlerSubscriber(self.queuesList, CurrentSteer, "lastOnly", True)
-        self.DrivingMode = messageHandlerSubscriber(self.queuesList, StateChange, "lastOnly", True)
-        self.ReceiveSteeringAngle = messageHandlerSubscriber(self.queuesList, MenjaUgao, "lastOnly", True)
+        pass
 
     def state_change_handler(self):
         pass
 
     def thread_work(self):
-        if self.test == 0:
-            self.test += 1
-            print("RADI THREAD")
-
+        # Reading Klem from nucleo
         rec = self.KlemReceive.receive()
         if rec is not None:
-            print(rec)
+            print("Current klem from nucleo: ", rec)
 
-        rec = self.SteeringAngle.receive()
+        # Reading Angle from nucleo
+        rec = self.currentSteeringAngle.receive()
         if rec is not None:
-            print(rec)
+            print("Current angle from nucleo: ", rec)
 
-        rec = self.ReceiveSteeringAngle.receive()
+        # Reading Speed from nucleo
+        rec = self.SpeedMotorReceive.receive()
+        if rec is not None:
+            print("Current speed from nucleo: ", rec)
+            self.speed = int(rec)
+
+        # Receiving calculated angle from computer vision
+        rec = self.calculatedSteeringAngle.receive()
         if rec is not None:
             if self.running:
-                # Formula: ulaz * 250, pa zaokruživanje na najbliži ceo broj
-                skalirana_vrednost = int(rec * 250)
-                self.ugao = skalirana_vrednost
-                print("upravljanje", skalirana_vrednost, rec)
+                self.new_angle = int(rec)
 
-        if self.running:
-            self.SpeedMotorSend.send(str(50))
-            self.sendSteer(self.ugao)
+        # Sending Angle and Speed on nucleo if runnig is enabled
+        if self.running == True:
+            if self.new_angle != self.angle:
+                self.sendSteer(self.new_angle)
+                self.angle = self.new_angle
 
+            if self.speed != self.new_speed:
+                self.sendSpeed(self.new_speed)
 
+        # Reading MODE from Dashboard
         rec = self.DrivingMode.receive()
         if rec is not None:
             print(rec)
             if rec == "AUTO":
                 self.sendKlem(30)
                 self.running = True
+                self.SpeedMotorSend.send(str(self.autoSpeed))
+                self.new_speed = self.autoSpeed
+
             elif rec == "STOP":
-                self.sendKlem(0)
-                self.running = False
-            else:
+                self.new_speed = 0
                 self.sendKlem(0)
                 self.running = False
 
     def sendKlem(self, klMode):
-        print("Valjda sam poslao klem")
+        # print("I guess I sent klem ", klMode)
         self.setKlemSender.send(str(klMode))
 
     def sendSteer(self, angle):
-        print("Valjda sam poslao ugao")
+        # print("I guess I sent angle", angle)
         self.setSteeringAngleSender.send(str(angle))
+
+    def sendSpeed(self, speed):
+        # print("I guess I sent speed", speed)
+        self.SpeedMotorSend.send(str(speed))
