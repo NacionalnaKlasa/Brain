@@ -306,7 +306,7 @@ class StateChange(Enum):
 
 ##############################    Custom Messages  ###################################
 
-class MenjaUgao(Enum):
+class CalculatedAngle(Enum):
     Queue = "General"
     Owner = "testSteering"
     msgID = 1

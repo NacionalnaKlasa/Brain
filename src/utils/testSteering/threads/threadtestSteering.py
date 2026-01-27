@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (Klem, SteerMotor, CurrentSteer, StateChange, MenjaUgao, SpeedMotor, CurrentSpeed)
+from src.utils.messages.allMessages import (Klem, SteerMotor, CurrentSteer, StateChange, CalculatedAngle, SpeedMotor, CurrentSpeed)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -37,7 +37,7 @@ class threadtestSteering(ThreadWithStop):
         self.KlemReceive = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
         self.currentSteeringAngle = messageHandlerSubscriber(self.queuesList, CurrentSteer, "lastOnly", True)
         self.DrivingMode = messageHandlerSubscriber(self.queuesList, StateChange, "lastOnly", True)
-        self.calculatedSteeringAngle = messageHandlerSubscriber(self.queuesList, MenjaUgao, "lastOnly", True)
+        self.calculatedSteeringAngle = messageHandlerSubscriber(self.queuesList, CalculatedAngle, "lastOnly", True)
         self.SpeedMotorReceive = messageHandlerSubscriber(self.queuesList, CurrentSpeed, "lastOnly", True)
     
     def _init_senders(self):

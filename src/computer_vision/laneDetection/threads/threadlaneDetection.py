@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (serialCamera, laneDetection, MenjaUgao)
+from src.utils.messages.allMessages import (serialCamera, laneDetection, CalculatedAngle)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -40,7 +40,7 @@ class threadlaneDetection(ThreadWithStop):
         """Subscribes to the messages you are interested in"""
         self.cameraReceive = messageHandlerSubscriber(self.queuesList, serialCamera, "lastOnly", True)
         self.cameraSender = messageHandlerSender(self.queuesList, laneDetection)
-        self.steeringSender = messageHandlerSender(self.queuesList, MenjaUgao)
+        self.steeringSender = messageHandlerSender(self.queuesList, CalculatedAngle)
 
     def state_change_handler(self):
         pass

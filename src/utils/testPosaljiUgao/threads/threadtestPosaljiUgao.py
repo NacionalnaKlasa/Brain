@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, MenjaUgao)
+from src.utils.messages.allMessages import (mainCamera, CalculatedAngle)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -25,7 +25,7 @@ class threadtestPosaljiUgao(ThreadWithStop):
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
-        self.posaljiUgao = messageHandlerSender(self.queuesList, MenjaUgao)
+        self.posaljiUgao = messageHandlerSender(self.queuesList, CalculatedAngle)
 
     def state_change_handler(self):
         pass
