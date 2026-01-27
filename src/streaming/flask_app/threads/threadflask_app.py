@@ -22,9 +22,20 @@ lastFrameRawData = None
 lastLaneDetectionDataEvent = threading.Event()
 lastLaneDetectionData = None
 
+streaming_active = False
+
 @app.route('/')
 def index():
+    global streaming_active
+    streaming_active = True
     return render_template('index.html')
+
+@app.route('/stop_streams', methods=['POST'])
+def stop_streams():
+    global streaming_active
+    streaming_active = False
+    print("Streaming stopped.")
+    return "OK", 200
 
 @app.route('/stream')
 def stream():
@@ -44,9 +55,10 @@ def lane_detection():
 
 def getFrame_serialStream():
     global lastFrameRawData
+    global streaming_active
 
     frame_bytes = None
-    while True:
+    while streaming_active:
         lastFrameRawDataEvent.wait()
         lastFrameRawDataEvent.clear()
         if frame_bytes == lastFrameRawData:
@@ -62,9 +74,10 @@ def getFrame_serialStream():
 
 def getFrame_laneDetectionStream():
     global lastLaneDetectionData
+    global streaming_active
 
     frame_bytes = None
-    while True:
+    while streaming_active:
         lastLaneDetectionDataEvent.wait()
         lastLaneDetectionDataEvent.clear()
         if frame_bytes == lastLaneDetectionData:

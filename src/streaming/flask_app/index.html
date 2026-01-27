@@ -53,6 +53,32 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('keydown', function(event) {
+            // Check if the pressed key is 'Delete'
+            if (event.key === "Delete" || event.keyCode === 46) {
+                console.log("Delete key pressed. Stopping streams...");
+
+                // 1. Tell the server to stop generating frames
+                fetch('/stop_streams', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        // 2. Clear the images in the UI to save browser resources
+                        const images = document.querySelectorAll('.video-card img');
+                        images.forEach(img => {
+                            img.src = ""; // Stop the browser from requesting the stream
+                            img.alt = "Stream Stopped";
+                        });
+                        
+                        const title = document.querySelector('h1');
+                        title.innerText = "Video Nadzor (STOPPED)";
+                        title.style.color = "red";
+                    }
+                })
+                .catch(err => console.error("Error stopping stream:", err));
+            }
+        });
+    </script>
 </head>
 <body>
 
