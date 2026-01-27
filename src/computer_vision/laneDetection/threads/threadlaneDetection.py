@@ -71,10 +71,8 @@ class threadlaneDetection(ThreadWithStop):
         if frame is None:
             print("Error while decoding image !")
             return
-
-        ##### Processing frame...
         
-        # Preprocessing
+        # # Preprocessing
         gamma = self.preprocessing.apply_gamma(frame)
 
         # # Processing
@@ -84,16 +82,20 @@ class threadlaneDetection(ThreadWithStop):
         left_avg, right_avg = self.processing.average_lines(lines, frame.shape[1])
 
         # # Postprocessing
-        lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg, frame.shape[1])
-        steering = self.postprocessing.p_control(lane_center, frame.shape[1])
-
-        # self.frame_send(gamma)
+        ### Calculating error and angle to send for servo motors
+        lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
+        steering, car_center, y_offset = self.postprocessing.p_control(lane_center, frame.shape[1], frame.shape[0])
 
         # # Vizualization
         # # Not necessary for car
         vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg)
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
         vis_frame = self.postprocessing.draw_roi(vis_frame)
+        vis_frame = self.postprocessing.draw_angle(vis_frame, steering)
+        vis_frame = self.postprocessing.draw_debug(vis_frame, car_center, y_offset)
 
         self.frame_send(vis_frame)
+
+        ####### VERY IMPORTANT TO SEND
         self.steering_send(steering)
+        ####### VERY IMPORTANT TO SEND
