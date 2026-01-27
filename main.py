@@ -140,7 +140,7 @@ processGateway = processGateway(queueList, logging)
 processGateway.start()
 
 start_testPosaljiUgao_process = False
-start_testSteering_process = False
+start_testSteering_process = True
 start_flask_app = True
 start_laneDetection = True
 

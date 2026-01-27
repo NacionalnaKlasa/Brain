@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (serialCamera, laneDetection)
+from src.utils.messages.allMessages import (serialCamera, laneDetection, MenjaUgao)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -40,6 +40,7 @@ class threadlaneDetection(ThreadWithStop):
         """Subscribes to the messages you are interested in"""
         self.cameraReceive = messageHandlerSubscriber(self.queuesList, serialCamera, "lastOnly", True)
         self.cameraSender = messageHandlerSender(self.queuesList, laneDetection)
+        self.steeringSender = messageHandlerSender(self.queuesList, MenjaUgao)
 
     def state_change_handler(self):
         pass
@@ -57,6 +58,9 @@ class threadlaneDetection(ThreadWithStop):
         _, buffer = cv2.imencode('.jpg', frame)
         frame = base64.b64encode(buffer).decode('utf-8')
         self.cameraSender.send(frame)
+
+    def steering_send(self, steering):
+        self.steeringSender.send(steering)
 
     def thread_work(self):
         frame = self.frame_receive()
@@ -81,7 +85,7 @@ class threadlaneDetection(ThreadWithStop):
 
         # # Postprocessing
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg, frame.shape[1])
-        #steering = self.postprocessing.p_control(lane_center, frame.shape[1])
+        steering = self.postprocessing.p_control(lane_center, frame.shape[1])
 
         # self.frame_send(gamma)
 
@@ -92,3 +96,4 @@ class threadlaneDetection(ThreadWithStop):
         vis_frame = self.postprocessing.draw_roi(vis_frame)
 
         self.frame_send(vis_frame)
+        self.steering_send(steering)

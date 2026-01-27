@@ -310,7 +310,7 @@ class MenjaUgao(Enum):
     Queue = "General"
     Owner = "testSteering"
     msgID = 1
-    msgType = "str"
+    msgType = "float"
 
 class laneDetection(Enum):
     Queue = "General"

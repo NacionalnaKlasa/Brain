@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, Klem, SteerMotor, CurrentSteer, StateChange, MenjaUgao)
+from src.utils.messages.allMessages import (mainCamera, Klem, SteerMotor, CurrentSteer, StateChange, MenjaUgao, SpeedMotor)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -19,6 +19,7 @@ class threadtestSteering(ThreadWithStop):
         self.logging = logging
         self.debugging = debugging
 
+        self.ugao = 0
         self.test = 0
         self.running = False
 
@@ -32,6 +33,7 @@ class threadtestSteering(ThreadWithStop):
         """Subscribes to the messages you are interested in"""
         self.setKlemSender = messageHandlerSender(self.queuesList, Klem)
         self.setSteeringAngleSender = messageHandlerSender(self.queuesList, SteerMotor)
+        self.SpeedMotorSend = messageHandlerSender(self.queuesList, SpeedMotor)
 
         self.KlemReceive = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
         self.SteeringAngle = messageHandlerSubscriber(self.queuesList, CurrentSteer, "lastOnly", True)
@@ -56,18 +58,29 @@ class threadtestSteering(ThreadWithStop):
 
         rec = self.ReceiveSteeringAngle.receive()
         if rec is not None:
-            if rec != "MANUAL":     # Dodao Kole
-                self.sendSteer(rec)
+            if self.running:
+                # Formula: ulaz * 250, pa zaokruživanje na najbliži ceo broj
+                skalirana_vrednost = int(rec * 250)
+                self.ugao = skalirana_vrednost
+                print("upravljanje", skalirana_vrednost, rec)
+
+        if self.running:
+            self.SpeedMotorSend.send(str(50))
+            self.sendSteer(self.ugao)
+
 
         rec = self.DrivingMode.receive()
         if rec is not None:
             print(rec)
             if rec == "AUTO":
                 self.sendKlem(30)
+                self.running = True
             elif rec == "STOP":
                 self.sendKlem(0)
+                self.running = False
             else:
                 self.sendKlem(0)
+                self.running = False
 
     def sendKlem(self, klMode):
         print("Valjda sam poslao klem")
