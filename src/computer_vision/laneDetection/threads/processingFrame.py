@@ -88,7 +88,7 @@ class ProcessingFrame():
 
         return filtered_vertical, filtered_horizontal
     
-    def average_lines(self, lines: List[Tuple[int,int,int,int]], width: int) -> Tuple[Tuple[int,int,int,int], Tuple[int,int,int,int]]:
+    def average_lines(self, lines: List[Tuple[int,int,int,int]]) -> Tuple[Tuple[int,int,int,int], Tuple[int,int,int,int]]:
         """Separate left/right lines and average them"""
         left_lines = []
         right_lines = []

@@ -3,6 +3,8 @@ from src.utils.messages.allMessages import (mainCamera)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
+import time
+
 class threadsignDetection(ThreadWithStop):
     """This thread handles signDetection.
     Args:
@@ -15,6 +17,9 @@ class threadsignDetection(ThreadWithStop):
         self.queuesList = queueList
         self.logging = logging
         self.debugging = debugging
+
+        self.test = 0
+        time.sleep(5)
         self.subscribe()
         super(threadsignDetection, self).__init__()
 
@@ -26,5 +31,7 @@ class threadsignDetection(ThreadWithStop):
         pass
 
     def thread_work(self):
-        pass
+        if self.test == 0:
+            print("signDetection thread is running")
+            self.test = 1
 

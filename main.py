@@ -144,7 +144,7 @@ start_testPosaljiUgao_process = False
 start_testSteering_process = True
 start_flask_app = True
 start_laneDetection = True
-start_signDetection = False
+start_signDetection = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
