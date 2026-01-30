@@ -78,17 +78,28 @@ class threadlaneDetection(ThreadWithStop):
         # # Processing
         edges = self.processing.apply_canny(gamma)
         roi = self.processing.apply_roi(edges)
+        # Working exaple
         lines = self.processing.apply_hough(roi)
-        left_avg, right_avg = self.processing.average_lines(lines, frame.shape[1])
+        left_avg, right_avg = self.processing.average_lines(lines)
+
+        #Test example
+        # vertical_lines, horizontal_lines = self.processing.apply_hough_all_lines(roi)
+        # left_avg, right_avg, stop_avg = self.processing.average_lines_with_stop(vertical_lines, horizontal_lines)
+
+        # stop_line = self.processing.detect_horizontal_stop_line(horizontal_lines,img_height=frame.shape[0])
+
+        # if stop_line is not None:
+        # cv2.line(frame, stop_line[:2], stop_line[2:], (0, 0, 255), 4)
+
 
         # # Postprocessing
         ### Calculating error and angle to send for servo motors
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
         steering, car_center, y_offset = self.postprocessing.p_control(lane_center, frame.shape[1], frame.shape[0])
-
+      
         # # Vizualization
         # # Not necessary for car
-        vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg)
+        vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg, None)
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
         vis_frame = self.postprocessing.draw_roi(vis_frame)
         vis_frame = self.postprocessing.draw_angle(vis_frame, steering)

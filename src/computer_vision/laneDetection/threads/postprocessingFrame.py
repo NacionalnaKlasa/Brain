@@ -10,12 +10,17 @@ class PostprocessingFrame:
 
         self.maxSteeringAngle = 250
         self.lastSteeringAngle = 0
-        self.lane_width = 300
-        self.alpha = 0.25
+        self.lane_width = 280
+        self.alpha = 0.46
+        self.b = 0.8
         
-        self.y_offset = 0.4
+        self.y_offset = 0.6
 
-        self.k = 1
+        self.k = 1.2
+
+        self.meanValues = []
+        for j in range(4):
+            self.meanValues.append(0)
 
     def calculate_lane_center(self, left_line, right_line):
         """Calculate lane center. If one line missing, assume average lane width"""
@@ -34,6 +39,9 @@ class PostprocessingFrame:
         
     def calculate_angle(self, lane_center, frame_width, frame_height):
         car_center = frame_width // 2
+        lane_center -= car_center
+        lane_center *= self.b
+        lane_center += car_center
         error = lane_center - car_center
 
         y_offset = int(frame_height * self.y_offset)
@@ -62,6 +70,11 @@ class PostprocessingFrame:
         raw_angle *= self.k
         
         raw_angle = self.clamp_angle(raw_angle)
+        for j in range(len(self.meanValues) - 1):
+            self.meanValues[j + 1] = self.meanValues[j]
+
+        self.meanValues[0] = raw_angle
+        raw_angle = sum(self.meanValues) / len(self.meanValues)
 
         new_angle = (self.alpha * raw_angle) + (1 - self.alpha) * self.lastSteeringAngle
         self.lastSteeringAngle = new_angle

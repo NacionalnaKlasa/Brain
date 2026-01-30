@@ -24,7 +24,7 @@ class threadtestSteering(ThreadWithStop):
         self.speed = 0
         self.new_speed = 0
 
-        self.autoSpeed = 150
+        self.autoSpeed = 270
         self.running = False
 
         time.sleep(5)
