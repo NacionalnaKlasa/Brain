@@ -75,6 +75,7 @@ from src.utils.testSteering.processtestSteering import processtestSteering
 from src.utils.testPosaljiUgao.processtestPosaljiUgao import processtestPosaljiUgao
 from src.streaming.flask_app.processflask_app import processflask_app
 from src.computer_vision.laneDetection.processlaneDetection import processlaneDetection
+from src.computer_vision.signDetection.processsignDetection import processsignDetection
 
 # ------ New component imports ends here ------#
 
@@ -143,6 +144,7 @@ start_testPosaljiUgao_process = False
 start_testSteering_process = True
 start_flask_app = True
 start_laneDetection = True
+start_signDetection = False
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -191,6 +193,11 @@ if start_laneDetection:
     laneDetection_ready = Event()
     processlaneDetection = processlaneDetection(queueList, logging, laneDetection_ready, debugging = False)
     allProcesses.insert(0, processlaneDetection)
+
+if start_signDetection:
+    signDetection_ready = Event()
+    processsignDetection = processsignDetection(queueList, logging, signDetection_ready, debugging = False)
+    allProcesses.insert(0, processsignDetection)
 
 # ------ New component initialize ends here ------#
 
