@@ -317,3 +317,9 @@ class laneDetection(Enum):
     Owner = "threadLaneDetection"
     msgID = 1
     msgType = "str"
+
+class signDetection(Enum):
+    Queue = "General"
+    Owner = "threadSignDetection"
+    msgID = 1
+    msgType = "str"

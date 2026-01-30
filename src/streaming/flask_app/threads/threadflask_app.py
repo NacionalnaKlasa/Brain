@@ -1,6 +1,6 @@
 import sys
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetection)
+from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetection, signDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -147,7 +147,7 @@ class threadflask_app(ThreadWithStop):
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
-        self.CameraReceive = messageHandlerSubscriber(self.queuesList, serialCamera, 'lastOnly', True)
+        self.CameraReceive = messageHandlerSubscriber(self.queuesList, signDetection, 'lastOnly', True)
         self.laneDetection = messageHandlerSubscriber(self.queuesList, laneDetection, 'lastOnly', True)
 
     def state_change_handler(self):
