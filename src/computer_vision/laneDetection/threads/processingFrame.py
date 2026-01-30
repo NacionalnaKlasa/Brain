@@ -13,6 +13,12 @@ class ProcessingFrame():
         self.hough_max_line_gap = config.Hough.hough_max_line_gap
         self.min_slope = config.Hough.min_slope
         self.max_slope = config.Hough.max_slope
+
+        # Stop line parametri
+        self.stop_min_length_ratio = config.StopLine.min_length_ratio
+        self.stop_y_tolerance = config.StopLine.y_tolerance
+        self.stop_slope_threshold = config.StopLine.slope_threshold
+        self.stop_min_segments = config.StopLine.min_segments
     
     def apply_canny(self, frame: np.ndarray) -> np.ndarray:
         """Convert to grayscale and apply Gaussian blur + Canny"""
@@ -47,15 +53,24 @@ class ProcessingFrame():
             minLineLength=self.hough_min_line_length,
             maxLineGap=self.hough_max_line_gap
         )
-        filtered = []
+        
+        lane_lines = []
+        stop_lines = []
+        
         if lines is not None:
             for x1, y1, x2, y2 in lines[:,0]:
                 if x2 - x1 == 0:
                     continue
                 slope = (y2 - y1) / (x2 - x1)
-                if self.min_slope < abs(slope) < self.max_slope:
-                    filtered.append((x1, y1, x2, y2))
-        return filtered
+                
+                # Horizontalne linije (zaustavne) - koristi konfigurabilan parametar
+                if abs(slope) < self.stop_slope_threshold:
+                    stop_lines.append((x1, y1, x2, y2))
+                # Vertikalne linije (trake)
+                elif self.min_slope < abs(slope) < self.max_slope:
+                    lane_lines.append((x1, y1, x2, y2))
+        
+        return lane_lines, stop_lines
 
     # NEW ALGORITHM FOR DETECTING LINES
     def apply_hough_all_lines(self, edges: np.ndarray) -> List[Tuple[int,int,int,int]]:
@@ -117,6 +132,53 @@ class ProcessingFrame():
         left_avg = line_average(left_lines)
         right_avg = line_average(right_lines)
         return left_avg, right_avg
+    
+    def fit_stop_line(self, stop_lines: List[Tuple[int,int,int,int]], frame_width: int) -> Tuple[int,int,int,int]:
+        """
+        Filtrira i fituje zaustavnu liniju koristeći konfiguracione parametre.
+        """
+        if not stop_lines:
+            return None
+        
+        # KORAK 1: Filtriranje
+        min_length = frame_width * self.stop_min_length_ratio
+        filtered_lines = []
+        
+        for x1, y1, x2, y2 in stop_lines:
+            length = abs(x2 - x1)
+            if length >= min_length:
+                filtered_lines.append((x1, y1, x2, y2))
+        
+        if not filtered_lines:
+            return None
+        
+        # KORAK 2: Biramo najnižu liniju
+        closest_line = max(filtered_lines, key=lambda line: (line[1] + line[3]) / 2)
+        avg_y = (closest_line[1] + closest_line[3]) // 2
+        
+        # KORAK 3: Skupljamo slične linije
+        similar_lines = []
+        for x1, y1, x2, y2 in filtered_lines:
+            line_y = (y1 + y2) // 2
+            if abs(line_y - avg_y) <= self.stop_y_tolerance:
+                similar_lines.append((x1, y1, x2, y2))
+        
+        # KORAK 4: Provera minimalnog broja segmenata
+        if len(similar_lines) < self.stop_min_segments:
+            return None
+        
+        # KORAK 5: Fitovanje
+        all_x = []
+        all_y = []
+        for x1, y1, x2, y2 in similar_lines:
+            all_x.extend([x1, x2])
+            all_y.extend([y1, y2])
+        
+        fitted_y = int(np.mean(all_y))
+        fitted_x1 = min(all_x)
+        fitted_x2 = max(all_x)
+        
+        return (fitted_x1, fitted_y, fitted_x2, fitted_y)
 
     # NEW ALGORITH FOR STOP LINE DETECTION
     def average_lines_with_stop(self, vertical_lines: List[Tuple[int,int,int,int]], horizontal_lines: List[Tuple[int,int,int,int]]) -> Tuple[Tuple[int,int,int,int], Tuple[int,int,int,int], Tuple[int,int,int,int]]:

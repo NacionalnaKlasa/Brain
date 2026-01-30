@@ -79,8 +79,10 @@ class threadlaneDetection(ThreadWithStop):
         edges = self.processing.apply_canny(gamma)
         roi = self.processing.apply_roi(edges)
         # Working exaple
-        lines = self.processing.apply_hough(roi)
+        lines, stop_lines = self.processing.apply_hough(roi)
+
         left_avg, right_avg = self.processing.average_lines(lines)
+        stop_line = self.processing.fit_stop_line(stop_lines, frame.shape[1])
 
         #Test example
         # vertical_lines, horizontal_lines = self.processing.apply_hough_all_lines(roi)
@@ -100,6 +102,7 @@ class threadlaneDetection(ThreadWithStop):
         # # Vizualization
         # # Not necessary for car
         vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg, None)
+        vis_frame = self.postprocessing.draw_stop(vis_frame, stop_line)
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
         vis_frame = self.postprocessing.draw_roi(vis_frame)
         vis_frame = self.postprocessing.draw_angle(vis_frame, steering)

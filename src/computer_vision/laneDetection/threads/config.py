@@ -40,6 +40,14 @@ class ROI_Y:
     roi_bottom_y: float = 0.95
 #########################################################
 
+############# Parameters for Stop Line #############
+@dataclass(frozen=True)
+class StopLine:
+    min_length_ratio: float = 0.08     # Min dužina linije (30% širine ekrana)
+    y_tolerance: int = 6              # Tolerancija za grupiranje linija (±10px)
+    slope_threshold: float = 0.5       # Max nagib za horizontalnu liniju
+    min_segments: int = 2              # Min broj segmenata za validnu stop liniju
+
 class Config:
     def __init__(self):
         self.Gamma = Gamma()
@@ -47,3 +55,4 @@ class Config:
         self.ROI = ROI()
         self.Hough = Hough()
         self.ROI_Y = ROI_Y()
+        self.StopLine = StopLine()

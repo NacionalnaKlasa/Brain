@@ -144,3 +144,10 @@ class PostprocessingFrame:
         cv2.line(frame, center_point, true_center_point, (255, 255, 255), 2)
 
         return frame
+    
+    def draw_stop(self, frame, stop):
+        if stop is not None:
+            cv2.line(frame, (stop[0], stop[1]), 
+                    (stop[2], stop[3]), (255, 0, 0), 4)
+
+        return frame
