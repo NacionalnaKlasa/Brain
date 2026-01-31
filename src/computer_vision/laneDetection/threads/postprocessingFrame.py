@@ -4,12 +4,12 @@ import numpy as np
 
 class PostprocessingFrame:
     def __init__(self, config):
-        self.roi_y_top = config.ROI_Y.roi_top_y
-        self.roi_y_bottom = config.ROI_Y.roi_bottom_y
         self.roi = config.ROI
+        self.roi_y_top = max(p[1] for p in self.roi)
+        self.roi_y_bottom = min(p[1] for p in self.roi)
 
-        self.maxSteeringAngle = 250
-        self.lastSteeringAngle = 0
+        self.maxSteeringAngle = 250.0
+        self.lastSteeringAngle = 0.0
         self.lane_width = 280
         self.alpha = 0.46
         self.b = 0.8
@@ -19,7 +19,7 @@ class PostprocessingFrame:
         self.k = 1.2
 
         self.meanValues = []
-        for j in range(4):
+        for _ in range(4):
             self.meanValues.append(0)
 
     def calculate_lane_center(self, left_line, right_line):
@@ -98,15 +98,14 @@ class PostprocessingFrame:
         roi_bottom = int(h * self.roi_y_bottom)
         
         # Draw rectangle around ROI
-        roi_points = np.array([
-            [int(w * self.roi.roi_bottom_left[0]), roi_bottom],
-            [int(w * self.roi.roi_bottom_right[0]), roi_bottom],
-            [int(w * self.roi.roi_top_right[0]), roi_top],
-            [int(w * self.roi.roi_top_left[0]), roi_top]
-        ], dtype=np.int32)
+        pts = []
+        for point in self.roi:
+            pts.append((np.int32(w * point[0]), np.int32(h * point[1])))
+        pts = np.array(pts, dtype=np.int32)
+        pts = pts.reshape((-1,1,2))
 
 
-        cv2.polylines(frame, [roi_points], isClosed=True, color=color, thickness=thickness)
+        cv2.polylines(frame, [pts], isClosed=True, color=color, thickness=thickness)
         return frame
 
     def draw_angle(self, frame, steering):
@@ -145,9 +144,12 @@ class PostprocessingFrame:
 
         return frame
     
-    def draw_stop(self, frame, stop):
-        if stop is not None:
-            cv2.line(frame, (stop[0], stop[1]), 
-                    (stop[2], stop[3]), (255, 0, 0), 4)
-
+    def draw_stop(self, frame, stop_lanes, color = (255, 0, 0)):
+        if stop_lanes is None:
+            return frame
+        for stop in stop_lanes:
+            if stop is not None:
+                x1, y1, x2, y2 = stop
+                cv2.line(frame, (int(x1),int(y1)), (int(x2),int(y2)), color, 4)
+            
         return frame

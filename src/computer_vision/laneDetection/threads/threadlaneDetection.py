@@ -66,7 +66,6 @@ class threadlaneDetection(ThreadWithStop):
         frame = self.frame_receive()
         if frame is None:
             return
-        
         frame = self._strToFrame(frame=frame)
         if frame is None:
             print("Error while decoding image !")
@@ -84,16 +83,6 @@ class threadlaneDetection(ThreadWithStop):
         left_avg, right_avg = self.processing.average_lines(lines)
         stop_line = self.processing.fit_stop_line(stop_lines, frame.shape[1])
 
-        #Test example
-        # vertical_lines, horizontal_lines = self.processing.apply_hough_all_lines(roi)
-        # left_avg, right_avg, stop_avg = self.processing.average_lines_with_stop(vertical_lines, horizontal_lines)
-
-        # stop_line = self.processing.detect_horizontal_stop_line(horizontal_lines,img_height=frame.shape[0])
-
-        # if stop_line is not None:
-        # cv2.line(frame, stop_line[:2], stop_line[2:], (0, 0, 255), 4)
-
-
         # # Postprocessing
         ### Calculating error and angle to send for servo motors
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
@@ -102,7 +91,9 @@ class threadlaneDetection(ThreadWithStop):
         # # Vizualization
         # # Not necessary for car
         vis_frame = self.processing.draw_lines(gamma, left_avg, right_avg, None)
-        vis_frame = self.postprocessing.draw_stop(vis_frame, stop_line)
+        vis_frame = self.postprocessing.draw_stop(vis_frame, stop_lines)
+        #vis_frame = self.postprocessing.draw_stop(vis_frame, filtered_lines)
+        vis_frame = self.postprocessing.draw_stop(vis_frame, [stop_line], color = (0, 0, 255))
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
         vis_frame = self.postprocessing.draw_roi(vis_frame)
         vis_frame = self.postprocessing.draw_angle(vis_frame, steering)
