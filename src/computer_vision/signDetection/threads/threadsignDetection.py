@@ -72,7 +72,8 @@ class threadsignDetection(ThreadWithStop):
 
     def detect(self, frame):
         # Parametar classes=[11] govori modelu da te zanima SAMO stop sign
-        results = self.model(frame, imgsz=512, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
+        # results = self.model(frame, imgsz=512, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
+        results = self.model(frame, imgsz=512, conf=self.conf_threshold, verbose=False)
         #results = self.model(frame, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
 
         detections = []
