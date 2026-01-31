@@ -94,8 +94,6 @@ class PostprocessingFrame:
     def draw_roi(self, frame, color=(0,255,255), thickness=2):
         """Draw ROI rectangle on frame"""
         h, w = frame.shape[:2]
-        roi_top = int(h * self.roi_y_top)
-        roi_bottom = int(h * self.roi_y_bottom)
         
         # Draw rectangle around ROI
         pts = []
@@ -143,6 +141,17 @@ class PostprocessingFrame:
         cv2.line(frame, center_point, true_center_point, (255, 255, 255), 2)
 
         return frame
+    
+    def draw_lines(self, frame: np.ndarray, left_line, right_line, stop_line, color=(0,255,0), color_stop=(255,0,0), thickness=3) -> np.ndarray:
+        """Draw left and right lines on frame"""
+        line_img = frame.copy()
+        if left_line is not None:
+            cv2.line(line_img, (left_line[0], left_line[1]), (left_line[2], left_line[3]), color, thickness)
+        if right_line is not None:
+            cv2.line(line_img, (right_line[0], right_line[1]), (right_line[2], right_line[3]), color, thickness)
+        if stop_line is not None:
+            cv2.line(line_img, (stop_line[0], stop_line[1]), (stop_line[2], stop_line[3]), color_stop, thickness)
+        return line_img
     
     def draw_stop(self, frame, stop_lanes, color = (255, 0, 0)):
         if stop_lanes is None:

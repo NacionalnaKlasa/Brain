@@ -27,14 +27,6 @@ ROI = [
     (0.3, 0.5)
 ]
 
-# @dataclass(frozen=True)
-# class ROI:
-# # Trapezoid ROI corners (x_ratio, y_ratio)
-#     roi_bottom_left: Tuple[float, float] = (0, 0.95)
-#     roi_bottom_right: Tuple[float, float] = (1, 0.95)
-#     roi_top_right: Tuple[float, float] = (0.7, 0.5)
-#     roi_top_left: Tuple[float, float] = (0.3, 0.5)
-
 #########################################################
 
 ############# Parameters for Postprocessing #############

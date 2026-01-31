@@ -62,10 +62,10 @@ class ProcessingFrame():
                     continue
                 slope = (y2 - y1) / (x2 - x1)
                 
-                # Horizontalne linije (zaustavne) - koristi konfigurabilan parametar
+                # Horizontal lines (stop lines) - use configurable parameter
                 if abs(slope) < self.stop_slope_threshold:
                     stop_lines.append((x1, y1, x2, y2))
-                # Vertikalne linije (trake)
+                # Vertical lines (lane lines)
                 elif self.min_slope < abs(slope) < self.max_slope:
                     lane_lines.append((x1, y1, x2, y2))
         
@@ -104,7 +104,7 @@ class ProcessingFrame():
     
     def fit_stop_line(self, stop_lines: List[Tuple[int,int,int,int]], frame_width: int) -> Tuple[int,int,int,int]:
         """
-        Filtrira i fituje zaustavnu liniju koristeći konfiguracione parametre.
+        Filtering and fitting stop line using configurable parameters 
         """
         if not stop_lines:
             return None
@@ -127,15 +127,3 @@ class ProcessingFrame():
             return self.line_average(filtered_lines)
         else:
             return None
-
-    # Not necessary for car
-    def draw_lines(self, frame: np.ndarray, left_line, right_line, stop_line, color=(0,255,0), color_stop=(255,0,0), thickness=3) -> np.ndarray:
-        """Draw left and right lines on frame"""
-        line_img = frame.copy()
-        if left_line is not None:
-            cv2.line(line_img, (left_line[0], left_line[1]), (left_line[2], left_line[3]), color, thickness)
-        if right_line is not None:
-            cv2.line(line_img, (right_line[0], right_line[1]), (right_line[2], right_line[3]), color, thickness)
-        if stop_line is not None:
-            cv2.line(line_img, (stop_line[0], stop_line[1]), (stop_line[2], stop_line[3]), color_stop, thickness)
-        return line_img
