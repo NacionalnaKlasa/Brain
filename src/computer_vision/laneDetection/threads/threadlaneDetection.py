@@ -34,6 +34,7 @@ class threadlaneDetection(ThreadWithStop):
         self.postprocessing = PostprocessingFrame(self.config)
 
         self.subscribe()
+        self.subscribe_senders()
         super(threadlaneDetection, self).__init__()
 
     def subscribe_senders(self):
