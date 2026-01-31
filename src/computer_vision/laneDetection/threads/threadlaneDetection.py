@@ -97,7 +97,7 @@ class threadlaneDetection(ThreadWithStop):
         # # Vizualization
         # # Not necessary for car
         vis_frame = self.postprocessing.draw_lines(gamma, left_avg, right_avg, None)
-        vis_frame = self.postprocessing.draw_stop(vis_frame, stop_lines)
+        #vis_frame = self.postprocessing.draw_stop(vis_frame, stop_lines)
         #vis_frame = self.postprocessing.draw_stop(vis_frame, filtered_lines)
         vis_frame = self.postprocessing.draw_stop(vis_frame, [stop_line], color = (0, 0, 255))
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
