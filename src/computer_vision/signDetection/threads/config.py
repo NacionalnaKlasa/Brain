@@ -19,3 +19,5 @@ class SignConfig:
     def __init__(self):
         self.Model = YOLOModel()
         self.Classes = SignClasses()
+
+        self.FPS = 3

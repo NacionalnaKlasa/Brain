@@ -23,16 +23,16 @@ class threadsignDetection(ThreadWithStop):
         self.logging = logging
         self.debugging = debugging
 
-        self.test = 0
-        self.FPS = 3
-        self.next = self.FPS
-        time.sleep(5)
-
         self.config = SignConfig()
         print(self.config.Model.model_path)
         self.model = YOLO(self.config.Model.model_path)
         self.classes = self.config.Classes.classes
         self.conf_threshold = self.config.Model.conf_threshold
+
+        self.FPS = self.config.FPS
+        self.next = self.FPS
+
+        time.sleep(5)
 
         self.subscribe()
         self.subscribe_senders()
@@ -40,24 +40,18 @@ class threadsignDetection(ThreadWithStop):
 
     def subscribe_senders(self):
         self.signDetectionSender = messageHandlerSender(self.queuesList, signDetection)
-        pass
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
         self.serialCamera = messageHandlerSubscriber(self.queuesList, serialCamera, 'lastOnly', True)
-        pass
 
     def state_change_handler(self):
         pass
 
     def thread_work(self):
-        if self.test == 0:
-            print("signDetection thread is running")
-            self.test = 1
-
         frame = self.serialCamera.receive()
         if frame is not None:
-            if self.next == 0:
+            if self.next <= 0:
                 self.next = self.FPS
             else:
                 self.next -= 1
@@ -68,10 +62,13 @@ class threadsignDetection(ThreadWithStop):
                 frame = self.draw(frame, detections)
                 # SEND
                 #frame = cv2.resize(frame, (512, 270), interpolation=cv2.INTER_LINEAR)
-                self.frame_send(frame)
+                self.sendFrame(frame)
 
     def detect(self, frame):
         # Parametar classes=[11] govori modelu da te zanima SAMO stop sign
+        """
+        Parameter 'classes=[11]' tells model to look only for that object (in case of base model yolo26: 'stop sign')
+        """
         # results = self.model(frame, imgsz=512, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
         results = self.model(frame, imgsz=512, conf=self.conf_threshold, verbose=False)
         #results = self.model(frame, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
@@ -79,7 +76,6 @@ class threadsignDetection(ThreadWithStop):
         detections = []
         for r in results:
             for box in r.boxes:
-                # Sada ovde više nećeš dobijati "parking" ili "person", samo stop sign
                 detections.append({
                     "class_id": int(box.cls[0]),
                     "label": r.names[int(box.cls[0])], 
@@ -90,29 +86,28 @@ class threadsignDetection(ThreadWithStop):
 
     def draw(self, frame, detections):
         for det in detections:
-            # Uzimamo koordinate iz rečnika koji vraća moja detect funkcija
+            # Taking coords from dictionary returned from 'detect()'
             x1, y1, x2, y2 = map(int, det["bbox"])
             conf = det["confidence"]
             
-            # KLJUČ: Koristimo "label" koji je detect funkcija već izvukla iz r.names
-            # Tako izbegavamo problem sa indeksima u tvojoj listi
+            # Key: using 'label' which 'detect()' already returned from r.names
             label_text = f"{det['label']} {conf:.2f}"
 
-            # Crtanje pravougaonika
+            # Drawing rectangle
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
             
-            # Crtanje pozadine za tekst (da bude čitljivije)
+            # Drawing background for text
             label_size, _ = cv2.getTextSize(label_text, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
             cv2.rectangle(frame, (x1, y1 - 25), (x1 + label_size[0], y1), (0, 255, 0), -1)
 
-            # Ispisivanje teksta
+            # Printing text
             cv2.putText(
                 frame,
                 label_text,
                 (x1, y1 - 5),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.6,
-                (0, 0, 0), # Crna slova na zelenoj pozadini
+                (0, 0, 0),
                 2
             )
             print(label_text)
@@ -125,7 +120,7 @@ class threadsignDetection(ThreadWithStop):
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
         return frame
     
-    def frame_send(self, frame):
+    def sendFrame(self, frame):
         _, buffer = cv2.imencode('.jpg', frame)
         frame = base64.b64encode(buffer).decode('utf-8')
         self.signDetectionSender.send(frame)
