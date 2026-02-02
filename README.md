@@ -1,4 +1,4 @@
-# BFMC - Brain Project
+# BFMC - Brain Project for team NacionalnaKlasa
 
 The project contains all the provided code for the RPi, more precisely:
 - Firmware for communicating with the Nucleo and control the robot movements (Speed with constant current consumption, speed with constant speed, braking, moving and steering);
