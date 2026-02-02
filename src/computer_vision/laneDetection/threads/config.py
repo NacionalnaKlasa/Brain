@@ -19,12 +19,12 @@ class Canny:
 ROI = [
     (0, 0.95),
     (0.27, 0.95),
-    (0.37, 0.73),
-    (0.62, 0.73),
+    (0.35, 0.76),
+    (0.64, 0.76),
     (0.73, 0.95),
     (1, 0.95),
-    (0.7, 0.5),
-    (0.3, 0.5)
+    (0.65, 0.4),
+    (0.35, 0.4)
 ]
 
 #########################################################
@@ -32,7 +32,7 @@ ROI = [
 ############# Parameters for Postprocessing #############
 @dataclass(frozen=True)
 class Hough:
-    hough_threshold: int = 80
+    hough_threshold: int = 50
     hough_min_line_length: int = 40
     hough_max_line_gap: int = 50
     min_slope: float = 0.3

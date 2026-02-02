@@ -11,7 +11,7 @@ class PostprocessingFrame:
         self.maxSteeringAngle = 250.0
         self.lastSteeringAngle = 0.0
         self.lane_width = 280
-        self.alpha = 0.46
+        self.alpha = 0.63
         self.b = 0.8
         
         self.y_offset = 0.6
@@ -19,7 +19,7 @@ class PostprocessingFrame:
         self.k = 1.2
 
         self.meanValues = []
-        for _ in range(4):
+        for _ in range(5):
             self.meanValues.append(0)
 
     def calculate_lane_center(self, left_line, right_line):
