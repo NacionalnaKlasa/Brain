@@ -19,6 +19,8 @@ class engine:
 
         self.queuesList = queuesList
 
+        self.currentKlem = 0
+
         self.currentSpeed = 0
         self.speed = 0
 
@@ -32,6 +34,7 @@ class engine:
 
     def subscribe(self):
         self.stateMessage = messageHandlerSubscriber(self.queuesList, StateChange, 'lastOnly', True)
+        self.klemReceiver = messageHandlerSubscriber(self.queuesList, Klem, "lastOnly", True)
 
         self.signReceiver = messageHandlerSubscriber(self.queuesList, signDetection, "lastOnly", True)
         self.laneReceiver = messageHandlerSubscriber(self.queuesList, laneDetection, "lastOnly", True)
@@ -49,6 +52,10 @@ class engine:
         recv = self.stateMessage.receive()
         if recv is not None:
             self.currentState = recv
+
+        recv = self.klemReceiver.receive()
+        if recv is not None:
+            self.currentKlem = int(recv)
 
         recv = self.signReceiver.receive()
         if recv is not None:
@@ -84,6 +91,9 @@ class engine:
 
     def getState(self):
         return self.currentState
+    
+    def getCurrentKlem(self):
+        return self.currentKlem
     
     def getLane(self):
         return self.currentLane
