@@ -38,9 +38,12 @@ class engine:
 
         self.angleCVReceiver = messageHandlerSubscriber(self.queuesList, CalculatedAngle, "lastOnly", True)
 
+        self.currentSpeedReceiver = messageHandlerSubscriber(self.queuesList, CurrentSpeed, "lastOnly", True)
+
     def subscribe_senders(self):
         self.klemSender = messageHandlerSender(self.queuesList, Klem)
         self.speedSender = messageHandlerSender(self.queuesList, SpeedMotor)
+        self.angleSender = messageHandlerSender(self.queuesList, SteerMotor)
         
     def update(self):
         recv = self.stateMessage.receive()
@@ -65,11 +68,17 @@ class engine:
         else:
             self.angleCV = None
 
+        recv = self.currentSpeedReceiver.receive()
+        if recv is not None:
+            self.currentSpeed = recv
+
     def sendMessage(self, msgID, msg):
         if msgID == Klem:
             self.klemSender.send(msg)
         elif msgID == SpeedMotor:
             self.speedSender.send(msg)
+        elif msgID == SteerMotor:
+            self.angleSender.send(msg)
         else:
             print("WRONG MESSAGE ID !")
 
@@ -84,3 +93,6 @@ class engine:
     
     def getAngleCV(self):
         return self.angleCV
+
+    def getCurrentSpeed(self):
+        return self.currentSpeed
