@@ -10,6 +10,9 @@ from src.utils.messages.allMessages import CurrentSpeed, CurrentSteer
 # FROM BFMC statemachine
 from src.utils.messages.allMessages import StateChange
 
+# FROM MY CODE
+from src.utils.messages.allMessages import signDetection, laneDetection, CalculatedAngle
+
 
 class engine:
     def __init__(self, queuesList):
@@ -30,14 +33,37 @@ class engine:
     def subscribe(self):
         self.stateMessage = messageHandlerSubscriber(self.queuesList, StateChange, 'lastOnly', True)
 
+        self.signReceiver = messageHandlerSubscriber(self.queuesList, signDetection, "lastOnly", True)
+        self.laneReceiver = messageHandlerSubscriber(self.queuesList, laneDetection, "lastOnly", True)
+
+        self.angleCVReceiver = messageHandlerSubscriber(self.queuesList, CalculatedAngle, "lastOnly", True)
+
     def subscribe_senders(self):
         self.klemSender = messageHandlerSender(self.queuesList, Klem)
         self.speedSender = messageHandlerSender(self.queuesList, SpeedMotor)
-
+        
     def update(self):
         recv = self.stateMessage.receive()
         if recv is not None:
             self.currentState = recv
+
+        recv = self.signReceiver.receive()
+        if recv is not None:
+            self.currentSign = recv
+        else:
+            self.currentSign = None
+
+        recv = self.laneReceiver.receive()
+        if recv is not None:
+            self.currentLane = recv
+        else:
+            self.currentLane = None
+
+        recv = self.angleCVReceiver.receive()
+        if recv is not None:
+            self.angleCV = recv
+        else:
+            self.angleCV = None
 
     def sendMessage(self, msgID, msg):
         if msgID == Klem:
@@ -49,3 +75,12 @@ class engine:
 
     def getState(self):
         return self.currentState
+    
+    def getLane(self):
+        return self.currentLane
+    
+    def getSign(self):
+        return self.currentSign
+    
+    def getAngleCV(self):
+        return self.angleCV

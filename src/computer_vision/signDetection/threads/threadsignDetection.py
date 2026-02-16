@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera, signDetectionFrame)
+from src.utils.messages.allMessages import (mainCamera, serialCamera, signDetectionFrame, signDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -39,7 +39,8 @@ class threadsignDetection(ThreadWithStop):
         super(threadsignDetection, self).__init__()
 
     def subscribe_senders(self):
-        self.signDetectionSender = messageHandlerSender(self.queuesList, signDetectionFrame)
+        self.signDetectionFrameSender = messageHandlerSender(self.queuesList, signDetectionFrame)
+        self.signDetectionSender = messageHandlerSender(self.queuesList, signDetection)
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
@@ -63,6 +64,9 @@ class threadsignDetection(ThreadWithStop):
                 # SEND
                 #frame = cv2.resize(frame, (512, 270), interpolation=cv2.INTER_LINEAR)
                 self.sendFrame(frame)
+
+                for detection in detections:
+                    self.sendDetection(msg = f"{detection['label']} {detection['confidence']:.2f}")
 
     def detect(self, frame):
         # Parametar classes=[11] govori modelu da te zanima SAMO stop sign
@@ -138,40 +142,9 @@ class threadsignDetection(ThreadWithStop):
                 (0, 0, 0),
                 2
             )
-            print(label_text)
+            # print(label_text)
 
         return frame
-
-    # def draw(self, frame, detections):
-    #     for det in detections:
-    #         # 1. Uzimanje koordinata za box
-    #         x1, y1, x2, y2 = map(int, det["bbox"])
-    #         conf = det["confidence"]
-    #         label_text = f"{det['label']} {conf:.2f}"
-
-    #         # 2. CRTANJE MASKE (POLIGONA)
-    #         if "mask" in det and det["mask"] is not None:
-    #             mask = det["mask"]  # Ovo je binarna maska (True/False)
-                
-    #             # Pravimo boju za masku (npr. svetlo zelena)
-    #             color_mask = np.array([0, 255, 0], dtype=np.uint8)
-                
-    #             # Kreiramo sloj sa bojom gde god je maska True
-    #             mask_bgr = np.zeros_like(frame)
-    #             mask_bgr[mask] = color_mask
-                
-    #             # Spajamo originalni frame i masku sa providnošću (alpha=0.5)
-    #             frame = cv2.addWeighted(frame, 1, mask_bgr, 0.5, 0)
-
-    #         # 3. Standardno crtanje okvira (opciono, ako želiš i box i masku)
-    #         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            
-    #         # 4. Ispis teksta
-    #         label_size, _ = cv2.getTextSize(label_text, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
-    #         cv2.rectangle(frame, (x1, y1 - 25), (x1 + label_size[0], y1), (0, 255, 0), -1)
-    #         cv2.putText(frame, label_text, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
-
-    #     return frame
 
     def _strToFrame(self, frame):
         frame = base64.b64decode(frame)
@@ -182,4 +155,7 @@ class threadsignDetection(ThreadWithStop):
     def sendFrame(self, frame):
         _, buffer = cv2.imencode('.jpg', frame)
         frame = base64.b64encode(buffer).decode('utf-8')
-        self.signDetectionSender.send(frame)
+        self.signDetectionFrameSender.send(frame)
+
+    def sendDetection(self, msg):
+        self.signDetectionSender.send(msg)

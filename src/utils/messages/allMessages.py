@@ -324,14 +324,14 @@ class signDetectionFrame(Enum):
     msgID = 1
     msgType = "str"
 
-# class laneDetection(Enum):
-#     Queue = "General"
-#     Owner = "test"
-#     msgID = 1
-#     msgType = "str"
+class laneDetection(Enum):
+    Queue = "General"
+    Owner = "test"
+    msgID = 1
+    msgType = "str"
 
-# class signDetection(Enum):
-#     Queue = "General"
-#     Owner = "test"
-#     msgID = 2
-#     msgType = "str"
+class signDetection(Enum):
+    Queue = "General"
+    Owner = "test"
+    msgID = 2
+    msgType = "str"

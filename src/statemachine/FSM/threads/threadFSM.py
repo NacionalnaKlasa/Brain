@@ -31,7 +31,7 @@ class threadFSM(ThreadWithStop):
 
         self.currentStateAuto = None
         self.previousState = None
-        self.currentState = States.STOP
+        self.currentState = States.IDLE
 
         self.engine = engine(queueList)
 
@@ -45,13 +45,9 @@ class threadFSM(ThreadWithStop):
         self.engine.update()
         state = self.engine.getState()
         if state is not None:
-            self.currentStateAuto = state
-
-            if self.currentStateAuto == "AUTO":
+            if state == "AUTO" and self.currentState == States.IDLE:
                 self.currentState = States.FOLLOW_LINE
-            elif self.currentStateAuto == "STOP":
-                self.currentState = States.IDLE
-            else:
+            elif state == "STOP":
                 self.currentState = States.IDLE
 
         if self.currentState != self.previousState:
@@ -61,10 +57,9 @@ class threadFSM(ThreadWithStop):
         tick = callback_table[self.currentState][CALLBACK_EXECUTE]
         nextState = tick(self.engine)
 
+        self.previousState = self.currentState
         if nextState is not None:
             self.currentState = nextState
-        else:
-            self.previousState = self.currentState
 
 
 
