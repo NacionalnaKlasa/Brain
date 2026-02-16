@@ -76,6 +76,7 @@ from src.utils.testPosaljiUgao.processtestPosaljiUgao import processtestPosaljiU
 from src.streaming.flask_app.processflask_app import processflask_app
 from src.computer_vision.laneDetection.processlaneDetection import processlaneDetection
 from src.computer_vision.signDetection.processsignDetection import processsignDetection
+from src.statemachine.FSM.processFSM import processFSM
 
 # ------ New component imports ends here ------#
 
@@ -141,10 +142,11 @@ processGateway = processGateway(queueList, logging)
 processGateway.start()
 
 start_testPosaljiUgao_process = False
-start_testSteering_process = True
+start_testSteering_process = False
 start_flask_app = True
 start_laneDetection = True
 start_signDetection = True
+start_FSM = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -198,6 +200,11 @@ if start_signDetection:
     signDetection_ready = Event()
     processsignDetection = processsignDetection(queueList, logging, signDetection_ready, debugging = False)
     allProcesses.insert(0, processsignDetection)
+
+if start_FSM:
+    FSM_ready = Event()
+    processFSM = processFSM(queueList, logging, FSM_ready, debugging = False)
+    allProcesses.insert(0, processFSM)
 
 # ------ New component initialize ends here ------#
 

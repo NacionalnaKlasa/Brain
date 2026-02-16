@@ -312,14 +312,26 @@ class CalculatedAngle(Enum):
     msgID = 1
     msgType = "float"
 
-class laneDetection(Enum):
+class laneDetectionFrame(Enum):
     Queue = "General"
     Owner = "threadLaneDetection"
     msgID = 1
     msgType = "str"
 
-class signDetection(Enum):
+class signDetectionFrame(Enum):
     Queue = "General"
     Owner = "threadSignDetection"
     msgID = 1
     msgType = "str"
+
+# class laneDetection(Enum):
+#     Queue = "General"
+#     Owner = "test"
+#     msgID = 1
+#     msgType = "str"
+
+# class signDetection(Enum):
+#     Queue = "General"
+#     Owner = "test"
+#     msgID = 2
+#     msgType = "str"

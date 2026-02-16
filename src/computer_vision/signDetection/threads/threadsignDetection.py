@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera, signDetection)
+from src.utils.messages.allMessages import (mainCamera, serialCamera, signDetectionFrame)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -39,7 +39,7 @@ class threadsignDetection(ThreadWithStop):
         super(threadsignDetection, self).__init__()
 
     def subscribe_senders(self):
-        self.signDetectionSender = messageHandlerSender(self.queuesList, signDetection)
+        self.signDetectionSender = messageHandlerSender(self.queuesList, signDetectionFrame)
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""

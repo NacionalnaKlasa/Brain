@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (serialCamera, laneDetection, CalculatedAngle)
+from src.utils.messages.allMessages import (serialCamera, laneDetectionFrame, CalculatedAngle)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -38,7 +38,7 @@ class threadlaneDetection(ThreadWithStop):
         super(threadlaneDetection, self).__init__()
 
     def subscribe_senders(self):
-        self.cameraSender = messageHandlerSender(self.queuesList, laneDetection)
+        self.cameraSender = messageHandlerSender(self.queuesList, laneDetectionFrame)
         self.steeringSender = messageHandlerSender(self.queuesList, CalculatedAngle)
 
     def subscribe(self):

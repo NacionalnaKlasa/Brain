@@ -1,0 +1,2 @@
+CALLBACK_ENTER = "enter"
+CALLBACK_EXECUTE = "execute"
