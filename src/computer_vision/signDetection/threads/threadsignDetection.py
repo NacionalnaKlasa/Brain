@@ -68,7 +68,7 @@ class threadsignDetection(ThreadWithStop):
                 self.sendFrame(frame)
 
                 for detection in detections:
-                    self.sendDetection(msg = f"{detection['label']} {detection['confidence']:.2f}")
+                    self.sendDetection(msg = f"{detection['label']} {detection['confidence']:.2f} {detection['distance']:.2}")
 
     def detect(self, frame):
         # Parametar classes=[11] govori modelu da te zanima SAMO stop sign
