@@ -30,7 +30,7 @@ def stateCallback_followLine(engine: engine):
     sign = engine.getSign()
     if sign is not None:
         signParts = sign.split()
-        if signParts[0] == "stop":
+        if signParts[0] == "stop" and float(signParts[2]) < 39.0:
             nextState = States.STOP
 
         if signParts[0] == "highway":
