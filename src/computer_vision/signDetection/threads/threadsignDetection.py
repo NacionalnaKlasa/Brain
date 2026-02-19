@@ -1,3 +1,5 @@
+from pyexpat import model
+
 from src.templates.threadwithstop import ThreadWithStop
 from src.utils.messages.allMessages import (mainCamera, serialCamera, signDetectionFrame, signDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
@@ -76,15 +78,35 @@ class threadsignDetection(ThreadWithStop):
         # results = self.model(frame, imgsz=512, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
         results = self.model(frame, imgsz=512, conf=self.conf_threshold, verbose=False)
         #results = self.model(frame, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
+       
+        #FOCAL_LENGTH = (h_px × udaljenost) / realna_visina
+        #FOCAL_LENGTH = (53 × 27) / 6 ≈ 243
+        FOCAL_LENGTH = 243
+        SIGN_REAL_HEIGHT = 6
+        #CONF_TH = 0.6
+        MIN_HEIGHT_PX = 20
 
         detections = []
         for r in results:
             for box in r.boxes:
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                h_px = y2 - y1
+
+                if h_px < MIN_HEIGHT_PX:
+                    continue
+
+                distance = (SIGN_REAL_HEIGHT * FOCAL_LENGTH) / h_px
+
+                class_id = int(box.cls[0])
+                class_name = self.model.names[class_id]
+                print(f"Znak: {class_name}, Udaljenost: {distance:.2f} cm")
+
                 detections.append({
                     "class_id": int(box.cls[0]),
                     "label": r.names[int(box.cls[0])], 
                     "confidence": float(box.conf[0]),
-                    "bbox": box.xyxy[0].tolist()
+                    "bbox": box.xyxy[0].tolist(),
+                    "distance": f"{distance:.1f} cm"
                 })
         return detections
 
