@@ -14,9 +14,14 @@ class PostprocessingFrame:
         self.alpha = 0.63
         self.b = 0.8
         
+        
         self.y_offset = 0.6
 
-        self.k = 1.2
+        self.kp = 1.2
+        self.ki = 0.01
+        self.k_aw = 100
+        self.integral = 0
+
 
         self.meanValues = []
         for _ in range(5):
@@ -48,8 +53,9 @@ class PostprocessingFrame:
         
         angle_radian = math.atan(error / y_offset)
         angle_degrees = math.degrees(angle_radian)
+        error = angle_degrees * 10 
 
-        return angle_degrees, car_center, y_offset
+        return error, car_center, y_offset
 
     def clamp_angle(self, angle, min_angle=None, max_angle=None):
         if min_angle == None:
@@ -66,8 +72,7 @@ class PostprocessingFrame:
 
         raw_angle, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
         
-        raw_angle *= 10
-        raw_angle *= self.k
+        raw_angle *= self.kp
         
         raw_angle = self.clamp_angle(raw_angle)
         for j in range(len(self.meanValues) - 1):
@@ -80,6 +85,39 @@ class PostprocessingFrame:
         self.lastSteeringAngle = new_angle
 
         return max(min(new_angle, self.maxSteeringAngle), -self.maxSteeringAngle), car_center, y_offset
+    
+    def pi_control(self, lane_center, frame_width, frame_height):
+
+        if lane_center is None:
+            return self.lastSteeringAngle, 0, 0
+
+        error, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
+
+        # === P dejstvo === #
+        
+        p_control = self.kp * error
+
+        # === I dejstvo  === #
+        u = p_control + self.integral
+        u_sat = max(min(u, self.maxSteeringAngle),-self.maxSteeringAngle)
+
+        # === anti-windup === #
+        self.integral += (self.ki * error + self.k_aw * (u_sat - u))
+
+        # === Usrednjavanje === #
+        for j in range(len(self.meanValues) - 1):
+            self.meanValues[j + 1] = self.meanValues[j]
+
+        self.meanValues[0] = u_sat
+        u_filtered = sum(self.meanValues) / len(self.meanValues)
+
+        new_angle = (self.alpha * u_filtered + (1 - self.alpha) * self.lastSteeringAngle)
+
+        self.lastSteeringAngle = new_angle
+
+        return max(min(new_angle, self.maxSteeringAngle), -self.maxSteeringAngle), car_center, y_offset
+
+
     
     # Not necessary for car
     def draw_lane_center(self, frame, lane_center, color=(0,0,255), thickness=2):

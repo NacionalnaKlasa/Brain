@@ -1,8 +1,7 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera)
+from src.utils.messages.allMessages import (mainCamera, MyStateChange)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
-
 
 # BFMC statemachine 
 from src.utils.messages.allMessages import StateChange
@@ -34,14 +33,23 @@ class threadFSM(ThreadWithStop):
         self.currentState = States.IDLE
 
         self.engine = engine(queueList)
+        self._lastHeartbeat = 0
+        self._Heartbeat = 500
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
+        self.stateSender = messageHandlerSender(self.queuesList, MyStateChange)
 
     def state_change_handler(self):
         pass
 
     def thread_work(self):
+        self._lastHeartbeat += 1
+        if self._lastHeartbeat > self._Heartbeat:
+            self.stateSender.send(str(self.currentState))
+            self._lastHeartbeat = 0
+
+
         self.engine.update()
         state = self.engine.getState()
         if state is not None:
@@ -59,6 +67,7 @@ class threadFSM(ThreadWithStop):
 
         self.previousState = self.currentState
         if nextState is not None:
+            self.stateSender.send(str(nextState))
             self.currentState = nextState
 
 

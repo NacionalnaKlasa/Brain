@@ -1,6 +1,6 @@
 import sys
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetectionFrame, signDetectionFrame)
+from src.utils.messages.allMessages import (mainCamera, serialCamera, laneDetectionFrame, signDetectionFrame, MyStateChange)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -12,6 +12,7 @@ from flask import Flask, render_template, Response
 import psutil
 import threading
 import os
+import logging
 
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 app = Flask(__name__, template_folder=template_dir)
@@ -23,12 +24,18 @@ lastLaneDetectionDataEvent = threading.Event()
 lastLaneDetectionData = None
 
 streaming_active = False
+_lastState = ""
 
 @app.route('/')
 def index():
     global streaming_active
     streaming_active = True
     return render_template('index.html')
+
+@app.route('/get_state')
+def get_state():
+    global _lastState
+    return _lastState
 
 @app.route('/stop_streams', methods=['POST'])
 def stop_streams():
@@ -92,6 +99,8 @@ def getFrame_laneDetectionStream():
                 b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes  + b'\r\n')
             
 def flask_app(port=4201):
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.WARNING)
     kill_process_on_port(port=port)
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False) 
 
@@ -135,7 +144,6 @@ class threadflask_app(ThreadWithStop):
         print(f"Template folder (absolute): {os.path.join(app.root_path, app.template_folder)}")
         print("--------------------------")
 
-        self.test = 0
         self.port = 4901
         self._init_flask()
         print("Flask app thread is running...")
@@ -149,6 +157,7 @@ class threadflask_app(ThreadWithStop):
         """Subscribes to the messages you are interested in"""
         self.CameraReceive = messageHandlerSubscriber(self.queuesList, signDetectionFrame, 'lastOnly', True)
         self.laneDetection = messageHandlerSubscriber(self.queuesList, laneDetectionFrame, 'lastOnly', True)
+        self.stateReceiver = messageHandlerSubscriber(self.queuesList, MyStateChange, "lastOnly", True)
 
     def state_change_handler(self):
         pass
@@ -160,12 +169,9 @@ class threadflask_app(ThreadWithStop):
         super(threadflask_app, self).stop()
 
     def thread_work(self):
+        global _lastState
         global lastFrameRawData
         global lastLaneDetectionData
-
-        if self.test == 0:
-            print("Flask app THREAD WORK")
-            self.test += 1
 
         rec = self.CameraReceive.receive()
         if rec is not None:
@@ -176,3 +182,7 @@ class threadflask_app(ThreadWithStop):
         if rec is not None:
             lastLaneDetectionData = base64.b64decode(rec)
             lastLaneDetectionDataEvent.set()
+
+        recv = self.stateReceiver.receive()
+        if recv is not None:
+            _lastState = recv

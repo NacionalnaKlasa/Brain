@@ -10,12 +10,14 @@ transition_table = {
 }
 
 callback_table = {
-    States.IDLE:            {CALLBACK_ENTER: stateCallbackEnter_idle,           CALLBACK_EXECUTE: stateCallback_idle},
-    States.FOLLOW_LINE:     {CALLBACK_ENTER: stateCallbackEnter_followLine,     CALLBACK_EXECUTE: stateCallback_followLine},
-    States.STOP:            {CALLBACK_ENTER: stateCallbackEnter_stop,           CALLBACK_EXECUTE: stateCallback_stop},
+    States.IDLE:            {CALLBACK_ENTER: stateCallbackEnter_idle,                   CALLBACK_EXECUTE: stateCallback_idle},
+    States.FOLLOW_LINE:     {CALLBACK_ENTER: stateCallbackEnter_followLine,             CALLBACK_EXECUTE: stateCallback_followLine},
 
-    States.HIGHWAY:         {CALLBACK_ENTER: stateCallbackEnter_entryHighway,   CALLBACK_EXECUTE: stateCallback_highway},
-    States.EXIT_HIGHWAY:    {CALLBACK_ENTER: stateCallbackEnter_exitHighway,    CALLBACK_EXECUTE: stateCallback_exitHighway},
+    States.STOP:            {CALLBACK_ENTER: stateCallbackEnter_stop,                   CALLBACK_EXECUTE: stateCallback_stop},
+    States.AFTER_STOP:      {CALLBACK_ENTER: stateCallbackEnter_followLineAfterStop,    CALLBACK_EXECUTE: stateCallback_followLineAfterStop},
 
-    States.ERROR:           {CALLBACK_ENTER: stateCallbackEnter_error,          CALLBACK_EXECUTE: stateCallback_error}
+    States.HIGHWAY:         {CALLBACK_ENTER: stateCallbackEnter_entryHighway,           CALLBACK_EXECUTE: stateCallback_highway},
+    States.EXIT_HIGHWAY:    {CALLBACK_ENTER: stateCallbackEnter_exitHighway,            CALLBACK_EXECUTE: stateCallback_exitHighway},
+
+    States.ERROR:           {CALLBACK_ENTER: stateCallbackEnter_error,                  CALLBACK_EXECUTE: stateCallback_error}
 }

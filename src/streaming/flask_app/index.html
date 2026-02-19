@@ -54,6 +54,15 @@
         }
     </style>
     <script>
+        function updateState(){
+            fetch('get_state')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dynamic_title').innerText = "Video Nadzor: " + data;
+                })
+                .catch(error => console.error("Greska: ", error))
+        }
+        setInterval(updateState, 500)
         document.addEventListener('keydown', function(event) {
             // Check if the pressed key is 'Delete'
             if (event.key === "Delete" || event.keyCode === 46) {
@@ -82,7 +91,7 @@
 </head>
 <body>
 
-    <h1>Video Nadzor</h1>
+    <h1 id="dynamic_title">Video Nadzor: {{ state }}</h1>
 
     <div class="video-grid">
         

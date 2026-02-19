@@ -335,3 +335,9 @@ class signDetection(Enum):
     Owner = "test"
     msgID = 2
     msgType = "str"
+
+class MyStateChange(Enum):
+    Queue = "General"
+    Owner = "test"
+    msgID = "3"
+    msgType = "str"

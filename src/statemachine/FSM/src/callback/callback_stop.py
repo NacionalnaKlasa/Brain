@@ -21,6 +21,6 @@ def stateCallback_stop(engine: engine):
 
     nextState = None
     if time.monotonic_ns() - _startTime > _stopTime:
-        nextState = States.FOLLOW_LINE
+        nextState = States.AFTER_STOP
 
     return nextState
