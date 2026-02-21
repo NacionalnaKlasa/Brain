@@ -12,22 +12,15 @@ from src.utils.messages.allMessages import StateChange
 
 # FROM MY CODE
 from src.utils.messages.allMessages import signDetection, laneDetection, CalculatedAngle
+from src.statemachine.FSM.src.states import States
 
 
 class engine:
     def __init__(self, queuesList):
 
-        self.queuesList = queuesList
-
-        self.currentKlem = 0
-
-        self.currentSpeed = 0
-        self.speed = 0
-
-        self.currentSteering = 0
-        self.steering = 0
-
-        self.currentState = None
+        self.queuesList = queuesList        
+        self.reset()
+        self.sendAgainNucleo = 40
 
         self.subscribe()
         self.subscribe_senders()
@@ -48,10 +41,39 @@ class engine:
         self.speedSender = messageHandlerSender(self.queuesList, SpeedMotor)
         self.angleSender = messageHandlerSender(self.queuesList, SteerMotor)
         
+    def reset(self):
+        self.BFMCState = "STOP"
+        
+        self.currentState = States.IDLE
+        self.previousState = None
+        self.lastState = None
+        self.desiredState = States.IDLE
+
+        self.currentKlem = None
+        self.desiredKlem = 0
+        self.klemSendNucleo = 0
+        
+        self.currentSpeed = None
+        self.desiredSpeed = 0
+        self.speedSendNucleo = 0
+        
+        self.currentAngle = None
+        self.desiredAngle = 0
+        self.calculatedAngle = 0
+        self.angleSendNucleo = 0
+        
+        self.currentSign = None
+        self.lastSign = None
+        
+        self.currentLane = None
+        self.lastLane = None
+        
+        
     def update(self):
+        # print("update")
         recv = self.stateMessage.receive()
         if recv is not None:
-            self.currentState = recv
+            self.BFMCState = recv
 
         recv = self.klemReceiver.receive()
         if recv is not None:
@@ -71,29 +93,69 @@ class engine:
 
         recv = self.angleCVReceiver.receive()
         if recv is not None:
-            self.angleCV = recv
+            self.calculatedAngle = int(recv)
         else:
-            self.angleCV = None
+            self.calculatedAngle = None
 
         recv = self.currentSpeedReceiver.receive()
         if recv is not None:
             self.currentSpeed = recv
+            
+    def tick(self):
+        self.previousState = self.currentState
+        if self.currentState != self.desiredState:
+            self.currentState = self.desiredState
+            
+        if self.currentKlem != self.desiredKlem:
+            if self.klemSendNucleo < self.sendAgainNucleo:
+                self.klemSendNucleo += 1
+            else:
+                self.sendMessage(Klem, str(self.desiredKlem))
+                self.klemSendNucleo = 0
+            
+        if self.currentSpeed != self.desiredSpeed:
+            if self.speedSendNucleo < self.sendAgainNucleo:
+                self.speedSendNucleo += 1
+            else:
+                self.sendMessage(SpeedMotor, str(self.desiredSpeed))
+                self.speedSendNucleo = 0
+            
+        if self.currentAngle != self.desiredAngle:
+            if self.angleSendNucleo < self.sendAgainNucleo:
+                self.angleSendNucleo += 1
+            else:
+                self.sendMessage(SteerMotor, str(self.desiredAngle))
+                self.angleSendNucleo = 0
 
     def sendMessage(self, msgID, msg):
-        if msgID == Klem:
-            self.klemSender.send(msg)
-        elif msgID == SpeedMotor:
-            self.speedSender.send(msg)
-        elif msgID == SteerMotor:
-            self.angleSender.send(msg)
-        else:
-            print("WRONG MESSAGE ID !")
+        if self.BFMCState == "STOP" or self.BFMCState == "AUTO":
+            if msgID == Klem:
+                self.klemSender.send(msg)
+            elif msgID == SpeedMotor:
+                self.speedSender.send(msg)
+            elif msgID == SteerMotor:
+                self.angleSender.send(msg)
+            else:
+                print("WRONG MESSAGE ID !")
+            
+    def getBFMCState(self):
+        return self.BFMCState
 
     def getState(self):
         return self.currentState
     
+    def setState(self, state):
+        self.desiredState = state
+        
+    def getPreviousState(self):
+        return self.previousState
+    
     def getCurrentKlem(self):
         return self.currentKlem
+    
+    def setKlem(self, klem):
+        self.desiredKlem = klem
+        self.klemSendNucleo = 20
     
     def getLane(self):
         return self.currentLane
@@ -101,8 +163,25 @@ class engine:
     def getSign(self):
         return self.currentSign
     
-    def getAngleCV(self):
-        return self.angleCV
+    def getAngle(self):
+        return self.currentAngle
+    
+    def getCalculatedAngle(self):
+        return self.calculatedAngle
+    
+    def setAngle(self, angle):
+        self.desiredAngle = angle
+        self.angleSendNucleo = 20
 
-    def getCurrentSpeed(self):
+    def getSpeed(self):
         return self.currentSpeed
+    
+    def setSpeed(self, speed):
+        self.desiredSpeed = speed
+        self.speedSendNucleo = 20
+        
+    def setLastSign(self, sign):
+        self.lastSign = sign
+        
+    def getLastSign(self):
+        return self.lastSign

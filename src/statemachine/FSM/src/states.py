@@ -5,7 +5,7 @@ class States(Enum):
     FOLLOW_LINE = auto(),
 
     STOP = auto(),
-    AFTER_STOP = auto(),
+    AFTER_SIGN = auto(),
 
     HIGHWAY = auto()
     EXIT_HIGHWAY = auto()

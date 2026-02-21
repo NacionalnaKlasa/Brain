@@ -99,7 +99,7 @@ class threadsignDetection(ThreadWithStop):
 
                 class_id = int(box.cls[0])
                 class_name = self.model.names[class_id]
-                print(f"Znak: {class_name}, Udaljenost: {distance:.2f} cm")
+                # print(f"Znak: {class_name}, Udaljenost: {distance:.2f} cm")
 
                 detections.append({
                     "class_id": int(box.cls[0]),

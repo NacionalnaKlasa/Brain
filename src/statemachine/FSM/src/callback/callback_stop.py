@@ -13,14 +13,11 @@ _stopTime: int = 3e9
 def stateCallbackEnter_stop(engine: engine):
     global _startTime
 
-    engine.sendMessage(Klem, "0")
+    engine.setKlem(0)
     _startTime = time.monotonic_ns()
     
 def stateCallback_stop(engine: engine):
     global _startTime, _stopTime
-
-    nextState = None
     if time.monotonic_ns() - _startTime > _stopTime:
-        nextState = States.AFTER_STOP
-
-    return nextState
+        engine.setLastSign("stop")
+        engine.setState(States.AFTER_SIGN)

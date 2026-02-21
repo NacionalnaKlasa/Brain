@@ -10,15 +10,8 @@ _desiredSpeed = 200
 
 def stateCallbackEnter_exitHighway(engine: engine):
     global _desiredSpeed
-    engine.sendMessage(SpeedMotor, str(int(_desiredSpeed)))
+    engine.setSpeed(_desiredSpeed)
 
 def stateCallback_exitHighway(engine: engine):
-    global _desiredSpeed
-    nextState = None
-
-    currentSpeed = engine.getCurrentSpeed()
-    if currentSpeed is not None:
-        if currentSpeed == _desiredSpeed:
-            nextState = States.FOLLOW_LINE
-
-    return nextState
+    engine.setLastSign("notHighway")
+    engine.setState(States.AFTER_SIGN)

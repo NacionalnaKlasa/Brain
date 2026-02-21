@@ -3,8 +3,7 @@ from src.utils.messages.allMessages import (mainCamera, MyStateChange)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
-# BFMC statemachine 
-from src.utils.messages.allMessages import StateChange
+import time
 
 # FSM
 from src.statemachine.FSM.src.callback.config import *
@@ -28,13 +27,11 @@ class threadFSM(ThreadWithStop):
         self.subscribe()
         super(threadFSM, self).__init__()
 
-        self.currentStateAuto = None
-        self.previousState = None
-        self.currentState = States.IDLE
-
         self.engine = engine(queueList)
         self._lastHeartbeat = 0
         self._Heartbeat = 500
+        
+        time.sleep(5)
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
@@ -46,29 +43,25 @@ class threadFSM(ThreadWithStop):
     def thread_work(self):
         self._lastHeartbeat += 1
         if self._lastHeartbeat > self._Heartbeat:
-            self.stateSender.send(str(self.currentState))
+            self.stateSender.send(str(self.engine.getState()))
             self._lastHeartbeat = 0
 
 
         self.engine.update()
         state = self.engine.getState()
-        if state is not None:
-            if state == "AUTO" and self.currentState == States.IDLE:
-                self.currentState = States.FOLLOW_LINE
-            elif state == "STOP":
-                self.currentState = States.IDLE
+        stateBFMC = self.engine.getBFMCState()
+        if stateBFMC == "AUTO" and state == States.IDLE:
+            self.engine.setState(States.FOLLOW_LINE)
+        elif stateBFMC == "STOP" and state != States.IDLE:
+            self.engine.setState(States.IDLE)
 
-        if self.currentState != self.previousState:
-            enterTick = callback_table[self.currentState][CALLBACK_ENTER]
+        if state != self.engine.getPreviousState():
+            enterTick = callback_table[state][CALLBACK_ENTER]
             enterTick(self.engine)
 
-        tick = callback_table[self.currentState][CALLBACK_EXECUTE]
-        nextState = tick(self.engine)
-
-        self.previousState = self.currentState
-        if nextState is not None:
-            self.stateSender.send(str(nextState))
-            self.currentState = nextState
+        tick = callback_table[state][CALLBACK_EXECUTE]
+        tick(self.engine)
+        self.engine.tick()
 
 
 
