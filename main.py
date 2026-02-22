@@ -77,6 +77,7 @@ from src.streaming.flask_app.processflask_app import processflask_app
 from src.computer_vision.laneDetection.processlaneDetection import processlaneDetection
 from src.computer_vision.signDetection.processsignDetection import processsignDetection
 from src.statemachine.FSM.processFSM import processFSM
+from src.localization.localization.processlocalization import processlocalization
 
 # ------ New component imports ends here ------#
 
@@ -145,8 +146,9 @@ start_testPosaljiUgao_process = False
 start_testSteering_process = False
 start_flask_app = False
 start_laneDetection = True
-start_signDetection = True
+start_signDetection = False
 start_FSM = True
+start_localization = False
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -205,6 +207,11 @@ if start_FSM:
     FSM_ready = Event()
     processFSM = processFSM(queueList, logging, FSM_ready, debugging = False)
     allProcesses.insert(0, processFSM)
+
+if start_localization:
+    localization_ready = Event()
+    processlocalization = processlocalization(queueList, logging, localization_ready, debugging = False)
+    allProcesses.insert(0, processlocalization)
 
 # ------ New component initialize ends here ------#
 

@@ -15,12 +15,12 @@ class PostprocessingFrame:
         self.b = 0.8
         
         
-        self.y_offset = 0.6
+        self.y_offset = 0.54
 
-        self.kp = 1.2
-        self.ki = 0.01
-        self.k_aw = 100
-        self.integral = 0
+        self.kp : float = 1.0
+        self.ki : float = 0.01
+        self.k_aw : float = 0.01
+        self.integral : float = 0
 
 
         self.meanValues = []
@@ -44,16 +44,21 @@ class PostprocessingFrame:
         
     def calculate_angle(self, lane_center, frame_width, frame_height):
         car_center = frame_width // 2
-        lane_center -= car_center
-        lane_center *= self.b
-        lane_center += car_center
+        # __________________________
+        #                           |                            
+        # lane_center -= car_center |
+        # lane_center *= self.b     => Ovo ovde je suvisno, komentarise Kole, mada treba opet zajedno proveriti. 
+        # lane_center += car_center |   Bukvalno ove 3 linije rade isto sto 53. i 54. rade same. Optimizacija koda :)
+        # __________________________|
         error = lane_center - car_center
-
+        error *= self.b
         y_offset = int(frame_height * self.y_offset)
         
         angle_radian = math.atan(error / y_offset)
         angle_degrees = math.degrees(angle_radian)
-        error = angle_degrees * 10 
+        #print(f"Izracunat ugao u stepenima : {angle_degrees}")
+        error = angle_degrees * 10
+        #print(f"Izracunat ugao u stepenima nakon skaliranja sa 10 : {error}")
 
         return error, car_center, y_offset
 
@@ -70,18 +75,21 @@ class PostprocessingFrame:
         if lane_center is None:
             return self.lastSteeringAngle, 0, 0
 
-        raw_angle, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
+        error, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
         
-        raw_angle *= self.kp
-        
-        raw_angle = self.clamp_angle(raw_angle)
+        error *= self.kp
+
+        error = self.clamp_angle(error)
+        #error = max(min(error, self.maxSteeringAngle), -self.maxSteeringAngle)  Pretpostavljam da je brze ovako nego da pozivamo f-ju, Kole.
+        #print(f"Izracunat ugao u stepenima nakon skaliranja sa 10 i klampinga: {error}")
         for j in range(len(self.meanValues) - 1):
             self.meanValues[j + 1] = self.meanValues[j]
 
-        self.meanValues[0] = raw_angle
-        raw_angle = sum(self.meanValues) / len(self.meanValues)
+        self.meanValues[0] = error
+        error = sum(self.meanValues) / len(self.meanValues)
+        #print(f"Izracunat ugao u stepenima nakon skaliranja sa 10 i klampinga i usrednjavanja: {error}")
 
-        new_angle = (self.alpha * raw_angle) + (1 - self.alpha) * self.lastSteeringAngle
+        new_angle = (self.alpha * error) + (1 - self.alpha) * self.lastSteeringAngle
         self.lastSteeringAngle = new_angle
 
         return max(min(new_angle, self.maxSteeringAngle), -self.maxSteeringAngle), car_center, y_offset
@@ -92,30 +100,31 @@ class PostprocessingFrame:
             return self.lastSteeringAngle, 0, 0
 
         error, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
-
-        # === P dejstvo === #
+        print(f"Greska : {error}")
         
         p_control = self.kp * error
+        print(f"P upravljanje: {p_control}")
+        print(f"I upravljanje: {self.integral}")
 
-        # === I dejstvo  === #
         u = p_control + self.integral
+        print(f"Izracunato upravljanje: {u}")
+        
         u_sat = max(min(u, self.maxSteeringAngle),-self.maxSteeringAngle)
 
-        # === anti-windup === #
+        # Usrednjavanje koje zavisi od staze da dodatno ublazi sizofreniju kod reference
+        # for j in range(len(self.meanValues) - 1):
+        #     self.meanValues[j + 1] = self.meanValues[j]
+
+        # self.meanValues[0] = error
+        # error = sum(self.meanValues) / len(self.meanValues)
+       
+        print(f"Parametri I dejstva: {self.ki}, {error}, {self.k_aw}, {u_sat - u}")
+
         self.integral += (self.ki * error + self.k_aw * (u_sat - u))
+        print(f"Moguce upravljanje: {u_sat}")
+        print("---------------------------------------------------")
 
-        # === Usrednjavanje === #
-        for j in range(len(self.meanValues) - 1):
-            self.meanValues[j + 1] = self.meanValues[j]
-
-        self.meanValues[0] = u_sat
-        u_filtered = sum(self.meanValues) / len(self.meanValues)
-
-        new_angle = (self.alpha * u_filtered + (1 - self.alpha) * self.lastSteeringAngle)
-
-        self.lastSteeringAngle = new_angle
-
-        return max(min(new_angle, self.maxSteeringAngle), -self.maxSteeringAngle), car_center, y_offset
+        return u_sat, car_center, y_offset
 
 
     

@@ -92,7 +92,11 @@ class threadlaneDetection(ThreadWithStop):
         # Postprocessing
         # Calculating error and angle to send for servo motors
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
-        steering, car_center, y_offset = self.postprocessing.p_control(lane_center, frame.shape[1], frame.shape[0])
+        steering, car_center, y_offset = self.postprocessing.pi_control(lane_center, frame.shape[1], frame.shape[0])
+
+        ####### VERY IMPORTANT TO SEND
+        self.sendSteering(steering)
+        ####### VERY IMPORTANT TO SEND
       
         # # Vizualization
         # # Not necessary for car
@@ -107,6 +111,4 @@ class threadlaneDetection(ThreadWithStop):
 
         self.sendFrame(vis_frame)
 
-        ####### VERY IMPORTANT TO SEND
-        self.sendSteering(steering)
-        ####### VERY IMPORTANT TO SEND
+        
