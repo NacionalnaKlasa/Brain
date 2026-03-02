@@ -35,6 +35,7 @@ class engine:
         self.angleCVReceiver = messageHandlerSubscriber(self.queuesList, CalculatedAngle, "lastOnly", True)
 
         self.currentSpeedReceiver = messageHandlerSubscriber(self.queuesList, CurrentSpeed, "lastOnly", True)
+        self.currentAngleReceiver = messageHandlerSubscriber(self.queuesList, CurrentSteer, "lastOnly", True)
 
     def subscribe_senders(self):
         self.klemSender = messageHandlerSender(self.queuesList, Klem)
@@ -101,6 +102,10 @@ class engine:
         if recv is not None:
             self.currentSpeed = recv
             
+        recv = self.currentAngleReceiver.receive()
+        if recv is not None:
+            self.currentAngle = recv
+            
     def tick(self):
         self.previousState = self.currentState
         if self.currentState != self.desiredState:
@@ -128,13 +133,15 @@ class engine:
                 self.angleSendNucleo = 0
 
     def sendMessage(self, msgID, msg):
-        if self.BFMCState == "STOP" or self.BFMCState == "AUTO":
+        if self.BFMCState == "AUTO" and self.BFMCState != "STOP":
             if msgID == Klem:
                 self.klemSender.send(msg)
             elif msgID == SpeedMotor:
                 self.speedSender.send(msg)
+                print("poslao brzinu", msg)
             elif msgID == SteerMotor:
                 self.angleSender.send(msg)
+                print("poslao ugao", msg)
             else:
                 print("WRONG MESSAGE ID !")
             

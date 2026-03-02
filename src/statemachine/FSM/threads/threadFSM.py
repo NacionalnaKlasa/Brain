@@ -46,15 +46,22 @@ class threadFSM(ThreadWithStop):
             self.stateSender.send(str(self.engine.getState()))
             self._lastHeartbeat = 0
 
+        #####
+        
+        # CHANGE AUTO STATE BACK TO FOLLOW LINE AFTER TESTING !!!
 
+        #####
+        
         self.engine.update()
         state = self.engine.getState()
         stateBFMC = self.engine.getBFMCState()
         if stateBFMC == "AUTO" and state == States.IDLE:
             self.engine.setState(States.FOLLOW_LINE)
+            # self.engine.setState(States.INTERSECTION)         
+            
         elif stateBFMC == "STOP" and state != States.IDLE:
             self.engine.setState(States.IDLE)
-
+            
         if state != self.engine.getPreviousState():
             enterTick = callback_table[state][CALLBACK_ENTER]
             enterTick(self.engine)

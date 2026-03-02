@@ -100,14 +100,14 @@ class PostprocessingFrame:
             return self.lastSteeringAngle, 0, 0
 
         error, car_center, y_offset = self.calculate_angle(lane_center, frame_width, frame_height)
-        print(f"Greska : {error}")
+        # print(f"Greska : {error}")
         
         p_control = self.kp * error
-        print(f"P upravljanje: {p_control}")
-        print(f"I upravljanje: {self.integral}")
+        # print(f"P upravljanje: {p_control}")
+        # print(f"I upravljanje: {self.integral}")
 
         u = p_control + self.integral
-        print(f"Izracunato upravljanje: {u}")
+        # print(f"Izracunato upravljanje: {u}")
         
         u_sat = max(min(u, self.maxSteeringAngle),-self.maxSteeringAngle)
 
@@ -118,11 +118,11 @@ class PostprocessingFrame:
         # self.meanValues[0] = error
         # error = sum(self.meanValues) / len(self.meanValues)
        
-        print(f"Parametri I dejstva: {self.ki}, {error}, {self.k_aw}, {u_sat - u}")
+        # print(f"Parametri I dejstva: {self.ki}, {error}, {self.k_aw}, {u_sat - u}")
 
         self.integral += (self.ki * error + self.k_aw * (u_sat - u))
-        print(f"Moguce upravljanje: {u_sat}")
-        print("---------------------------------------------------")
+        # print(f"Moguce upravljanje: {u_sat}")
+        # print("---------------------------------------------------")
 
         return u_sat, car_center, y_offset
 
