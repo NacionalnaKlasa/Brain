@@ -44,3 +44,5 @@ class Localization:
 
 
 
+SERVER_IP = "192.168.50.101" 
+SERVER_PORT = 65432

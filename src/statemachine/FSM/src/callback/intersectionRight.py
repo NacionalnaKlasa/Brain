@@ -7,13 +7,18 @@ from src.statemachine.FSM.src.states import States
 from src.statemachine.FSM.src.engine import engine
 from src.utils.messages.allMessages import Klem
 
-_startTimeAAA = 0
+from src.statemachine.FSM.src.callback.common.follow_line import follow_line
+
+_startTime: int = 0
 _stopAfterStraight = 3.5e9
-_stopAfterTurn = 4e9
+_fff = 0.3e9
+_followLineTimeout = _fff
+
+_stopAfterTurn = 3e9 + _followLineTimeout
 _stop: bool = False
 
 _speed: int = 200 
-_angle: int = 170
+_angle: int = 160
 
 _state: int = 0
 setFirst = False
@@ -27,30 +32,58 @@ setFirst = False
 
 def Enter_intersectionRight(engine: engine):
     print("ENTER INTERSECTION RIGHT")
-    global _startTimeAAA, _stop, _state, _speed, setFirst
+    global _startTime, _stop, _speed, setFirst, _angle, _stopAfterTurn, _followLineTimeout, _fff
     
     engine.setKlem(30)
-    if engine.getAngle() != 0:
-        engine.setAngle(5)
-        
-    if engine.getSpeed() != _speed:
-        engine.setSpeed(_speed)
+    engine.setSpeed(_speed)
     
-    _stop = False
-    _state = 0
-    setFirst = False
+    _startTime = time.monotonic_ns()
+    # print(_startTime)
+    print("engine counter", engine.counter)
+    if engine.counter == 2:
+        print("pa onda sam povecao ????")
+        _followLineTimeout = 0
+    elif engine.counter == 5:
+        _followLineTimeout = 1e9
+    else:
+        _followLineTimeout = _fff
+    
+    # print(_startTime)
+    # print(_startTime + _stopAfterTurn)
+    # print(_startTime, " ", _stopAfterTurn)
+    
+    # _stop = False
+    # setFirst = False
     
     
 def Execute_intersectionRight(engine: engine):
-    global _state
-    
-    if _state == 0:
-        _firstMove(engine)
-    elif _state == 1:
-        _secondMove(engine)
+    global _startTime, _stopAfterTurn, _state, _followLineTimeout, _angle
+    t = time.monotonic_ns()
+    if t - _startTime < _followLineTimeout:
+        follow_line(engine)
+        print("OVDE BIH TREBAO MALO DA IDEM PRAVO PRVO")
+        # _startTime = time.monotonic_ns()
+        # print("STANIIIIII")
+        # engine.setSpeed(0)
+        # engine.setAngle(0)
+    elif t - _startTime < _stopAfterTurn:
+        # print("MOLIM TE POSTAVI UGAO NA ", _angle)
+        engine.setAngle(_angle)
     else:
-        print("vratio sam se na follow")
         engine.setState(States.FOLLOW_LINE)
+        
+        
+        
+        
+    # global _state
+    
+    # if _state == 0:
+    #     _firstMove(engine)
+    # elif _state == 1:
+    #     _secondMove(engine)
+    # else:
+    #     print("vratio sam se na follow")
+    #     engine.setState(States.FOLLOW_LINE)
         
         
 def _firstMove(engine: engine):
@@ -63,14 +96,14 @@ def _firstMove(engine: engine):
         return
     else:
         if not setFirst:
-            print("postavio vreme")
+            # print("postavio vreme")
             setFirst = True
             _startTimeAAA = time.monotonic_ns()
     
     if time.monotonic_ns() - _startTimeAAA > _stopAfterStraight:
         _startTimeAAA = time.monotonic_ns()
         setFirst = False
-        print("idem dalje prvi put")
+        # print("idem dalje prvi put")
         engine.setSpeed(0)
         engine.setAngle(0)
         _state = 1
@@ -87,11 +120,11 @@ def _secondMove(engine: engine):
         return
     else:
         if not setFirst:
-            print("postavio vreme")
+            # print("postavio vreme")
             setFirst = True
             _startTimeAAA = time.monotonic_ns()
     
     if time.monotonic_ns() - _startTimeAAA > _stopAfterTurn:
-        print("idem dalje drugi put")
+        # print("idem dalje drugi put")
         _state = 2
     

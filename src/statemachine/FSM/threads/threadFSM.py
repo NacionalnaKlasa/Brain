@@ -2,6 +2,9 @@ from src.templates.threadwithstop import ThreadWithStop
 from src.utils.messages.allMessages import (mainCamera, MyStateChange)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
+from src.utils.messages.allMessages import SpeedMotor, SteerMotor, Brake, Klem, DrivingMode
+
+from src.statemachine.FSM.src.callback.config import FORBIDEN_STATES
 
 import time
 
@@ -24,15 +27,16 @@ class threadFSM(ThreadWithStop):
         self.queuesList = queueList
         self.logging = logging
         self.debugging = debugging
+        
+        time.sleep(5)
+
         self.subscribe()
         super(threadFSM, self).__init__()
 
         self.engine = engine(queueList)
         self._lastHeartbeat = 0
         self._Heartbeat = 500
-        
-        time.sleep(5)
-
+    
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
         self.stateSender = messageHandlerSender(self.queuesList, MyStateChange)
@@ -45,21 +49,22 @@ class threadFSM(ThreadWithStop):
         if self._lastHeartbeat > self._Heartbeat:
             self.stateSender.send(str(self.engine.getState()))
             self._lastHeartbeat = 0
-
-        #####
-        
-        # CHANGE AUTO STATE BACK TO FOLLOW LINE AFTER TESTING !!!
-
-        #####
         
         self.engine.update()
         state = self.engine.getState()
         stateBFMC = self.engine.getBFMCState()
         if stateBFMC == "AUTO" and state == States.IDLE:
-            self.engine.setState(States.FOLLOW_LINE)
-            # self.engine.setState(States.INTERSECTION)         
+            #self.engine.setState(States.TRAFIC_LIGHT)
+            # self.engine.setState(States.INTERSECTION)
+            # params = {FORBIDEN_STATES:[States.PARKING]}
+            self.engine.setState(States.FOLLOW_LINE) 
+            # self.engine.setState(States.PARKING)        
             
         elif stateBFMC == "STOP" and state != States.IDLE:
+            # self.engine.sendMessage(Klem, str(0))
+            self.engine.highway = 0
+            self.engine.counter = 0
+            self.engine.klemSender.send("0")
             self.engine.setState(States.IDLE)
             
         if state != self.engine.getPreviousState():

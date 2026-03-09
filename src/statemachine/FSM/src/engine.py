@@ -14,6 +14,8 @@ from src.utils.messages.allMessages import StateChange
 from src.utils.messages.allMessages import signDetection, laneDetection, CalculatedAngle
 from src.statemachine.FSM.src.states import States
 
+import time
+
 
 class engine:
     def __init__(self, queuesList):
@@ -48,17 +50,17 @@ class engine:
         self.currentState = States.IDLE
         self.previousState = None
         self.lastState = None
-        self.desiredState = States.IDLE
+        self.desiredState:States = States.IDLE
 
-        self.currentKlem = None
+        self.currentKlem = 0
         self.desiredKlem = 0
         self.klemSendNucleo = 0
         
-        self.currentSpeed = None
+        self.currentSpeed = 0
         self.desiredSpeed = 0
         self.speedSendNucleo = 0
         
-        self.currentAngle = None
+        self.currentAngle = 0
         self.desiredAngle = 0
         self.calculatedAngle = 0
         self.angleSendNucleo = 0
@@ -68,6 +70,11 @@ class engine:
         
         self.currentLane = None
         self.lastLane = None
+
+        self.stateParameters = {}
+        self.counter = 0
+        
+        self.highway = 0
         
         
     def update(self):
@@ -100,10 +107,13 @@ class engine:
 
         recv = self.currentSpeedReceiver.receive()
         if recv is not None:
+            pass
+            # print("Current speed is ", recv, time.monotonic_ns())
             self.currentSpeed = recv
             
         recv = self.currentAngleReceiver.receive()
         if recv is not None:
+            # print("Current angle is ", recv, time.monotonic_ns())
             self.currentAngle = recv
             
     def tick(self):
@@ -117,18 +127,23 @@ class engine:
             else:
                 self.sendMessage(Klem, str(self.desiredKlem))
                 self.klemSendNucleo = 0
-            
+        
+        # print("Current speed: ", self.currentSpeed, "     Desired speed: ", self.desiredSpeed)
         if self.currentSpeed != self.desiredSpeed:
             if self.speedSendNucleo < self.sendAgainNucleo:
                 self.speedSendNucleo += 1
             else:
+                # print("trebalo bi da sam poslao brzinu", self.desiredSpeed, " ", self.currentSpeed)
                 self.sendMessage(SpeedMotor, str(self.desiredSpeed))
                 self.speedSendNucleo = 0
-            
+        
+        # print("Current angle: ", self.currentAngle, ", desired angle: ", self.desiredAngle)
         if self.currentAngle != self.desiredAngle:
             if self.angleSendNucleo < self.sendAgainNucleo:
+                # print("povecaj counter")
                 self.angleSendNucleo += 1
             else:
+                # print("posalji ugao engine ?", self.desiredAngle)
                 self.sendMessage(SteerMotor, str(self.desiredAngle))
                 self.angleSendNucleo = 0
 
@@ -138,10 +153,10 @@ class engine:
                 self.klemSender.send(msg)
             elif msgID == SpeedMotor:
                 self.speedSender.send(msg)
-                print("poslao brzinu", msg)
+                # print("poslao brzinu", msg, time.monotonic_ns())
             elif msgID == SteerMotor:
                 self.angleSender.send(msg)
-                print("poslao ugao", msg)
+                # print("poslao ugao", msg, time.monotonic_ns())
             else:
                 print("WRONG MESSAGE ID !")
             
@@ -151,18 +166,25 @@ class engine:
     def getState(self):
         return self.currentState
     
-    def setState(self, state):
+    def setState(self, state:States, params:dict = None):
         self.desiredState = state
+
+        self.stateParameters.clear()
+        if params is not None:
+            self.stateParameters.update(params)
         
     def getPreviousState(self):
         return self.previousState
+    
+    def getStateParameters(self, key: str):
+        return self.stateParameters.get(key)
     
     def getCurrentKlem(self):
         return self.currentKlem
     
     def setKlem(self, klem):
         self.desiredKlem = klem
-        self.klemSendNucleo = 20
+        self.klemSendNucleo = self.sendAgainNucleo
     
     def getLane(self):
         return self.currentLane
@@ -177,15 +199,14 @@ class engine:
         return self.calculatedAngle
     
     def setAngle(self, angle):
+        # print("primio sam ugao u engine ???")
         self.desiredAngle = angle
-        self.angleSendNucleo = 20
 
     def getSpeed(self):
         return self.currentSpeed
     
     def setSpeed(self, speed):
         self.desiredSpeed = speed
-        self.speedSendNucleo = 20
         
     def setLastSign(self, sign):
         self.lastSign = sign

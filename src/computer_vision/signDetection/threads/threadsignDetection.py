@@ -11,6 +11,7 @@ import base64
 import numpy as np
 from ultralytics import YOLO
 from src.computer_vision.signDetection.threads.config import SignConfig
+from src.computer_vision.signDetection.threads.config import OBJECT_TYPES, Types
 
 class threadsignDetection(ThreadWithStop):
     """This thread handles signDetection.
@@ -30,6 +31,7 @@ class threadsignDetection(ThreadWithStop):
         self.model = YOLO(self.config.Model.model_path)
         self.classes = self.config.Classes.classes
         self.conf_threshold = self.config.Model.conf_threshold
+        self.alpha = self.config.Model.alpha
 
         self.FPS = self.config.FPS
         self.next = self.FPS
@@ -68,7 +70,8 @@ class threadsignDetection(ThreadWithStop):
                 self.sendFrame(frame)
 
                 for detection in detections:
-                    self.sendDetection(msg = f"{detection['label']} {detection['confidence']:.2f} {detection['distance']:.2}")
+                    if detection['label'] != "priority":
+                        self.sendDetection(msg = f"{detection['label']} {detection['confidence']:.2f} {detection['distance']:.2} {detection['center']}")
 
     def detect(self, frame):
         # Parametar classes=[11] govori modelu da te zanima SAMO stop sign
@@ -83,30 +86,55 @@ class threadsignDetection(ThreadWithStop):
         #FOCAL_LENGTH = (53 × 27) / 6 ≈ 243
         FOCAL_LENGTH = 243
         SIGN_REAL_HEIGHT = 6
+        PEDESTRIAN_REAL_HEIGHT = 14
+        CAR_REAL_HEIGHT = 12.7
+        STOP_LINE_REAL_WIDTH = 41
+        TRAFFIC_LIGHT_REAL_HEIGHT = 18
         #CONF_TH = 0.6
         MIN_HEIGHT_PX = 20
+        FRAME_WIDTH = frame.shape[1]
+        FRAME_WIDTH_CENTER = FRAME_WIDTH / 2
 
         detections = []
         for r in results:
             for box in r.boxes:
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
                 h_px = y2 - y1
+                w_px = x2 - x1
+                x_center = (x1 + x2) / 2
 
                 if h_px < MIN_HEIGHT_PX:
                     continue
-
-                distance = (SIGN_REAL_HEIGHT * FOCAL_LENGTH) / h_px
-
+                
                 class_id = int(box.cls[0])
                 class_name = self.model.names[class_id]
+                
+                if class_name in OBJECT_TYPES.get(Types.SIGN):
+                    distance = (SIGN_REAL_HEIGHT * FOCAL_LENGTH) / h_px
+                elif class_name in OBJECT_TYPES.get(Types.PEDESTRIAN):
+                    distance = (PEDESTRIAN_REAL_HEIGHT * FOCAL_LENGTH) / h_px
+                elif class_name in OBJECT_TYPES.get(Types.CAR):
+                    distance = (CAR_REAL_HEIGHT * FOCAL_LENGTH) / h_px
+                elif class_name in OBJECT_TYPES.get(Types.TRAFFIC_LIGHT):
+                    distance = (TRAFFIC_LIGHT_REAL_HEIGHT * FOCAL_LENGTH) / h_px
+                elif class_name in OBJECT_TYPES.get(Types.STOP_LINE):
+                    if abs(x_center - FRAME_WIDTH_CENTER) < self.alpha * FRAME_WIDTH:    
+                        distance = (STOP_LINE_REAL_WIDTH * FOCAL_LENGTH) / w_px
+                    else:
+                        continue
+                else:
+                    distance = 0
+
                 # print(f"Znak: {class_name}, Udaljenost: {distance:.2f} cm")
+                # print(f"FRAME_WIDTH: {FRAME_WIDTH}, FRAME_WIDTH_CENTER: {FRAME_WIDTH_CENTER}")
 
                 detections.append({
                     "class_id": int(box.cls[0]),
                     "label": r.names[int(box.cls[0])], 
                     "confidence": float(box.conf[0]),
                     "bbox": box.xyxy[0].tolist(),
-                    "distance": f"{distance:.1f} cm"
+                    "distance": f"{distance:.1f}",
+                    "center": int(x_center)
                 })
         return detections
 

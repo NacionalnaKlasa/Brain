@@ -11,7 +11,6 @@ def stateCallbackEnter_stopLine(engine: engine):
     # engine.setSpeed(0)
     # engine.setAngle(0)
     print("ENTER STOP LINE")
-    pass
     
 def stateCallback_stopLine(engine: engine):
     print("EXECUTE STOP LINE")

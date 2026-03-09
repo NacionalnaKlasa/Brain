@@ -6,6 +6,8 @@ from src.statemachine.FSM.src.states import States
 from src.statemachine.FSM.src.engine import engine
 from src.utils.messages.allMessages import Klem, SpeedMotor, SteerMotor
 
+from .config import FORBIDEN_STATES
+
 _desiredSpeed = 200
 
 def stateCallbackEnter_exitHighway(engine: engine):
@@ -14,4 +16,5 @@ def stateCallbackEnter_exitHighway(engine: engine):
 
 def stateCallback_exitHighway(engine: engine):
     engine.setLastSign("notHighway")
-    engine.setState(States.AFTER_SIGN)
+    params = {FORBIDEN_STATES: [States.HIGHWAY_EXIT, States.HIGHWAY_ENTRY]}
+    engine.setState(States.FOLLOW_LINE, params)

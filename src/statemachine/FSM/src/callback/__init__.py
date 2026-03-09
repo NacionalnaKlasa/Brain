@@ -13,3 +13,8 @@ from .callback_intersection import Enter_intersection,              Execute_inte
 from .callback_intersectionLeft import Enter_intersectionLeft,      Execute_intersectionLeft
 from .intersectionRight     import Enter_intersectionRight,         Execute_intersectionRight
 from .intersectionStraight  import Enter_intersectionStraight,      Execute_intersectionStraight
+
+from .callback_pedestrian import stateCallbackEnter_pedestrian, stateCallback_pedestrian
+from .callback_parking import stateCallbackEnter_parking, stateCallback_parking
+
+from .traficLight           import Enter_traficLight,               Execute_traficLight

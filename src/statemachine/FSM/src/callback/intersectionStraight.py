@@ -8,11 +8,18 @@ from src.statemachine.FSM.src.engine import engine
 from src.utils.messages.allMessages import Klem
 
 _startTime: int = 0
-_stopAfter: int = 3.5e9
+_stopAfter: int = 5e9
 _stop: bool = False
 
+_heartbeat = 200
+_last_heartbeat = 0
+
 _speed: int = 200 
-_angle: int = 0
+_angle: float = 0.0
+_final_angle: float = -150.0
+_step_angle :float = _final_angle / (_stopAfter/(1e6*_heartbeat))
+
+
 
 #####
 
@@ -22,19 +29,35 @@ _angle: int = 0
 #####
 
 def Enter_intersectionStraight(engine: engine):
-    global _startTime, _stop
+    global _startTime, _stop, _angle, _speed, _step_angle, _last_heartbeat
+ 
+    _angle = 0.0
+    _last_heartbeat = 0
+    # print(_step_angle)
     
-    engine.setAngle(_angle)
+    engine.setAngle(int(_angle))
     engine.setSpeed(_speed)
     _startTime = time.monotonic_ns()
-    _stop = False
     
 def Execute_intersectionStraight(engine: engine):
-    global _startTime, _stopAfter, _stop
+    global _startTime, _stopAfter, _stop, _angle, _final_angle, _step_angle, _heartbeat, _last_heartbeat
     
-    if time.monotonic_ns() - _startTime > _stopAfter and not _stop:
-        # engine.setState(States.FOLLOW_LINE)
-        _stop = True
-        engine.setAngle(0)
-        engine.setSpeed(0)
-        engine.setKlem(0)
+    # print(int(_angle), _step_angle)
+
+    if _last_heartbeat > _heartbeat:
+        _last_heartbeat = 0
+        engine.setAngle(int(_angle))
+        if abs(_angle) < abs(_final_angle):
+            _angle += _step_angle
+        else:
+            _angle = _final_angle
+    else:
+        _last_heartbeat += 1 
+
+    if time.monotonic_ns() - _startTime > _stopAfter:
+        engine.setState(States.FOLLOW_LINE)
+        # engine.setAngle(0)
+        # engine.setSpeed(0)
+        # engine.setKlem(0)
+    
+ 

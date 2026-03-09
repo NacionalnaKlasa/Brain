@@ -144,7 +144,7 @@ processGateway.start()
 
 start_testPosaljiUgao_process = False
 start_testSteering_process = False
-start_flask_app = False
+start_flask_app = True
 start_laneDetection = True
 start_signDetection = True
 start_FSM = True
@@ -220,6 +220,7 @@ if start_localization:
 for process in allProcesses:
     process.daemon = True
     process.start()
+    time.sleep(1)
 
 # ===================================== STAYING ALIVE ====================================
 

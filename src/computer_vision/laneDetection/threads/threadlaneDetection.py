@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (serialCamera, laneDetectionFrame, CalculatedAngle)
+from src.utils.messages.allMessages import (serialCamera, laneDetectionFrame, CalculatedAngle, StateChange)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -33,6 +33,8 @@ class threadlaneDetection(ThreadWithStop):
         self.processing = ProcessingFrame(self.config)
         self.postprocessing = PostprocessingFrame(self.config)
 
+        self.BFMCState = None
+
         self.subscribe()
         self.subscribe_senders()
         super(threadlaneDetection, self).__init__()
@@ -44,6 +46,7 @@ class threadlaneDetection(ThreadWithStop):
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
         self.cameraReceive = messageHandlerSubscriber(self.queuesList, serialCamera, "lastOnly", True)
+        self.stateMessage = messageHandlerSubscriber(self.queuesList, StateChange, 'lastOnly', True)
 
     def state_change_handler(self):
         pass
@@ -68,7 +71,20 @@ class threadlaneDetection(ThreadWithStop):
     def sendSteering(self, steering):
         self.steeringSender.send(steering)
 
+    def update(self):
+        recv = self.stateMessage.receive()
+        if recv is not None:
+            self.BFMCState = recv
+    
+    def check_state_and_call_control(self, lane_center, frame_width, frame_height):
+        self.update()
+        if self.BFMCState != "AUTO":
+            return 0.0, 0.0, 0.0
+        else:
+            return self.postprocessing.pi_control(lane_center, frame_width, frame_height)
+
     def thread_work(self):
+        
         frame = self.receievFrame()
         if frame is None:
             return
@@ -92,8 +108,8 @@ class threadlaneDetection(ThreadWithStop):
         # Postprocessing
         # Calculating error and angle to send for servo motors
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
-        steering, car_center, y_offset = self.postprocessing.pi_control(lane_center, frame.shape[1], frame.shape[0])
-
+        # Prevent from accumulation of integral action
+        steering, car_center, y_offset = self.check_state_and_call_control(lane_center, frame.shape[1], frame.shape[0])
         ####### VERY IMPORTANT TO SEND
         self.sendSteering(steering)
         ####### VERY IMPORTANT TO SEND
@@ -103,7 +119,7 @@ class threadlaneDetection(ThreadWithStop):
         vis_frame = self.postprocessing.draw_lines(gamma, left_avg, right_avg, None)
         #vis_frame = self.postprocessing.draw_stop(vis_frame, stop_lines)
         #vis_frame = self.postprocessing.draw_stop(vis_frame, filtered_lines)
-        vis_frame = self.postprocessing.draw_stop(vis_frame, [stop_line], color = (0, 0, 255))
+        #vis_frame = self.postprocessing.draw_stop(vis_frame, [stop_line], color = (0, 0, 255))
         vis_frame = self.postprocessing.draw_lane_center(vis_frame, lane_center)
         vis_frame = self.postprocessing.draw_roi(vis_frame)
         vis_frame = self.postprocessing.draw_angle(vis_frame, steering)

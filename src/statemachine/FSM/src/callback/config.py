@@ -1,2 +1,3 @@
 CALLBACK_ENTER = "enter"
 CALLBACK_EXECUTE = "execute"
+FORBIDEN_STATES = "forbiden"
