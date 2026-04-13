@@ -37,4 +37,8 @@ callback_table = {
     States.TRAFIC_LIGHT_GREEN:      {CALLBACK_ENTER: Enter_traficLight,                     CALLBACK_EXECUTE: Execute_traficLight},
     States.TRAFIC_LIGHT_YELLOW:     {CALLBACK_ENTER: Enter_traficLight,                     CALLBACK_EXECUTE: Execute_traficLight},
     States.TRAFIC_LIGHT_RED_YELLOW: {CALLBACK_ENTER: Enter_traficLight,                     CALLBACK_EXECUTE: Execute_traficLight},
+
+    States.ROUNDABOUT:              {CALLBACK_ENTER: Enter_roundabout,                      CALLBACK_EXECUTE: Execute_roundabout},
+
+    States.CAR:                     {CALLBACK_ENTER: Enter_car,                             CALLBACK_EXECUTE: Execute_car},
 }

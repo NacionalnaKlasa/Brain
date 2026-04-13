@@ -1,0 +1,934 @@
+[2026-04-10 03:10:15.465] [8541] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:10:15.477] [8541] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:10:15.477] [8541] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:10:15.477] [8541] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:10:15.489] [8541] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:10:15.489] [8541] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.556889 milliseconds
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.859241 milliseconds
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1)
+[2026-04-10 03:10:15.509] [8541] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | Reorder - src_order: FCR, src_shape: (1, 3024, 24), dst_order: FCR, dst_shape: (1, 3024, 18))
+[2026-04-10 03:10:15.529] [8541] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | timeout: 10s)
+[2026-04-10 03:10:15.529] [8541] [H[2026-04-10 03:12:36.797] [9276] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:12:36.809] [9276] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:12:36.809] [9276] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:12:36.809] [9276] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:12:36.821] [9276] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:12:36.821] [9276] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.639371 milliseconds
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.928 milliseconds
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:12:36.840] [9276] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:12:36.841] [9276] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1)
+[2026-04-10 03:12:36.841] [9276] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | Reorder - src_order: FCR, src_shape: (1, 3024, 24), dst_order: FCR, dst_shape: (1, 3024, 18))
+[2026-04-10 03:12:36.865] [9276] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | timeout: 10s)
+[2026-04-10 03:12:36.865] [9276] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/ne_activation_activation1...
+[2026-04-10 03:12:36.865] [9276] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/ne_activation_activation1': HW >> (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576) >> (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1) >> (PostInferEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | Reorder - src_order: FCR, src_shape: (1, 3024, 24), dst_order: FCR, dst_shape: (1, 3024, 18)) >> (UserBuffQEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | timeout: 10s)
+[2026-04-10 03:12:41.908] [9375] [HailoRT] [info] [vstream.cpp:1128] [read] Trying to read from vstream bfmc_yolo_model_stari_p1/concat14 before its network_group is activated
+[2026-04-10 03:12:41.908] [9374] [HailoRT] [error] [vstream.cpp:767] [write] CHECK failed - Trying to write to vstream bfmc_yolo_model_stari_p1/input_layer1 before its network group is activated
+[2026-04-10 03:12:41.909] [9374] [HailoRT] [error] [inference_pipeline.cpp:225] [operator()] CHECK_SUCCESS failed with status=HAILO_NETWORK_GROUP_NOT_ACTIVATED(69)
+[2026-04-10 03:12:41.908] [9376] [HailoRT] [info] [vstream.cpp:1128] [read] Trying to read from vstream bfmc_yolo_model_stari_p1/ne_activation_activation1 before its network_group is activated
+[2026-04-10 03:12:41.909] [9362] [HailoRT] [error] [inference_pipeline.cpp:257] [infer] Failed waiting for threads with status HAILO_NETWORK_GROUP_NOT_ACTIVATED(69)
+[2026-04-10 03:12:41.909] [9362] [HailoRT] [error] [inference_pipeline.cpp:257] [infer] Failed waiting for threads with status HAILO_NETWORK_GROUP_NOT_ACTIVATED(69)
+[2026-04-10 03:12:41.909] [9362] [HailoRT] [error] [inference_pipeline.cpp:257] [infer] Failed waiting for threads with status HAILO_NETWORK_GROUP_NOT_ACTIVATED(69)
+[2026-04-10 03:16:17.186] [9839] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:16:17.197] [9839] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:16:17.197] [9839] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:16:17.197] [9839] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:16:17.209] [9839] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:16:17.209] [9839] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:16:17.228] [9839] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.457722 milliseconds
+[2026-04-10 03:16:17.228] [9839] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.775278 milliseconds
+[2026-04-10 03:16:17.228] [9839] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.305074 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.313685 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:16:17.229] [9839] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1[2026-04-10 03:18:06.847] [10775] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:18:06.860] [10775] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:18:06.860] [10775] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:18:06.860] [10775] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:18:06.872] [10775] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:18:06.872] [10775] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:18:06.898] [10775] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 31.339777 milliseconds
+[2026-04-10 03:18:06.898] [10775] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 31.804982 milliseconds
+[2026-04-10 03:18:06.898] [10775] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:18:06.899] [10775] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.459185 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:18:06.899] [10775] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.508093 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:18:06.899] [10775] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:18:06.899] [10775] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:18:06.899] [10775] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:18:06.900] [10775] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:18:06.900] [10775] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:18:06.900] [10775] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:18:06.901] [10775] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:18:06.901] [10775] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:18:06.902] [10775] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:18:06.902] [10775] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:18:06.902] [10775] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_[2026-04-10 03:23:07.290] [18285] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:23:07.301] [18285] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:23:07.301] [18285] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:23:07.301] [18285] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:23:07.313] [18285] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:23:07.313] [18285] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:23:07.332] [18285] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.180092 milliseconds
+[2026-04-10 03:23:07.332] [18285] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.468889 milliseconds
+[2026-04-10 03:23:07.332] [18285] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.30626 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.314889 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:23:07.333] [18285] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_a[2026-04-10 03:24:54.235] [19125] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:24:54.247] [19125] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:24:54.248] [19125] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:24:54.248] [19125] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:24:54.259] [19125] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:24:54.259] [19125] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:24:54.280] [19125] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 27.315648 milliseconds
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 27.59263 milliseconds
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.325759 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.335112 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:24:54.281] [19125] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:24:54.282] [19125] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_a[2026-04-10 03:25:48.610] [19951] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:25:48.621] [19951] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:25:48.621] [19951] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:25:48.621] [19951] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:25:48.633] [19951] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:25:48.633] [19951] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.629241 milliseconds
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.925574 milliseconds
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.321704 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.331037 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:25:48.653] [19951] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:25:48.654] [19951] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:25:48.654] [19951] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:25:48.654] [19951] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:25:48.654] [19951] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:25:48.654] [19951] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_[2026-04-10 03:27:34.968] [21243] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:27:34.981] [21243] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:27:34.981] [21243] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:27:34.981] [21243] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:27:34.992] [21243] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:27:34.992] [21243] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:27:35.013] [21243] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 26.523111 milliseconds
+[2026-04-10 03:27:35.013] [21243] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 26.836704 milliseconds
+[2026-04-10 03:27:35.013] [21243] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.301852 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.310186 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:27:35.014] [21243] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_[2026-04-10 03:28:55.704] [22750] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:28:55.716] [22750] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:28:55.717] [22750] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:28:55.717] [22750] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:28:55.728] [22750] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:28:55.728] [22750] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:28:55.747] [22750] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.40274 milliseconds
+[2026-04-10 03:28:55.747] [22750] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.69513 milliseconds
+[2026-04-10 03:28:55.747] [22750] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:28:55.747] [22750] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.310055 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:28:55.747] [22750] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.3195 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:28:55.748] [22750] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_acti[2026-04-10 03:29:45.348] [23583] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:29:45.360] [23583] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:29:45.360] [23583] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:29:45.360] [23583] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:29:45.372] [23583] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:29:45.372] [23583] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:29:45.395] [23583] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 29.083685 milliseconds
+[2026-04-10 03:29:45.395] [23583] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 29.397593 milliseconds
+[2026-04-10 03:29:45.395] [23583] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.312981 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.322778 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:29:45.396] [23583] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_[2026-04-10 03:35:05.541] [25540] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:35:05.553] [25540] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:35:05.553] [25540] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:35:05.553] [25540] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:35:05.565] [25540] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:35:05.565] [25540] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.481352 milliseconds
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.77187 milliseconds
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.311389 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.321019 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:35:05.584] [25540] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:35:05.585] [25540] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:35:05.585] [25540] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:35:05.585] [25540] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:35:05.585] [25540] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:35:05.585] [25540] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_a[2026-04-10 03:38:30.919] [25998] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:38:30.932] [25998] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:38:30.932] [25998] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:38:30.932] [25998] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:38:30.943] [25998] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:38:30.943] [25998] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:38:30.962] [25998] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.336314 milliseconds
+[2026-04-10 03:38:30.962] [25998] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.624815 milliseconds
+[2026-04-10 03:38:30.962] [25998] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307389 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.316482 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:38:30.963] [25998] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_[2026-04-10 03:42:58.890] [27198] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-10 03:42:58.901] [27198] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-10 03:42:58.901] [27198] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-10 03:42:58.901] [27198] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-10 03:42:58.913] [27198] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-10 03:42:58.913] [27198] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-10 03:42:58.932] [27198] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.397407 milliseconds
+[2026-04-10 03:42:58.932] [27198] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.68513 milliseconds
+[2026-04-10 03:42:58.932] [27198] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307259 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.315333 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-10 03:42:58.933] [27198] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_a[2026-04-13 13:42:45.792] [3264] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:42:45.818] [3264] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:42:45.819] [3264] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:42:45.820] [3264] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:42:45.956] [3264] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:42:45.956] [3264] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:42:45.996] [3264] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 54.178276 milliseconds
+[2026-04-13 13:42:45.996] [3264] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 54.976727 milliseconds
+[2026-04-13 13:42:45.996] [3264] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:42:45.997] [3264] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.360291 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:42:45.997] [3264] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.380272 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:42:45.999] [3264] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:42:46.000] [3264] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:42:46.000] [3264] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:42:46.000] [3264] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:42:46.000] [3264] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:42:46.000] [3264] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:42:46.001] [3264] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:42:46.001] [3264] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:42:46.001] [3264] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:42:46.001] [3264] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-13 13:42:46.034] [3264] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1[2026-04-13 13:45:27.838] [3719] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:45:27.850] [3719] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:45:27.850] [3719] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:45:27.850] [3719] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:45:27.861] [3719] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:45:27.861] [3719] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.02761 milliseconds
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.319771 milliseconds
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.305273 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.314384 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:45:27.881] [3719] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:45:27.882] [3719] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:45:27.882] [3719] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:45:27.882] [3719] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:45:27.882] [3719] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-13 13:45:27.914] [3719] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1)
+[2026-04-13 13:45:27.914] [3719] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | Reorder - src_order: FCR, src_shape: (1, 3024, 24), dst_order: FCR, dst_shape: (1, 3024, 18))
+[2026-04-13 13:45:27.914] [3719] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | timeout: 10s)
+[2026-04-13 13:45:27.914] [3719] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/ne_activation_activation1...
+[2026-04-13 13:45:27.914] [3719] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/ne_activation_activation1': HW >> (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576) >> (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1) >> (PostInferEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | Reorder - src_order: FCR, src_shape: (1, 3024, 24), dst_order: FCR, dst_shape: (1, 3024, 18)) >> (UserBuffQEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | timeout: 10s)
+[2026-04-13 13:45:32.959] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.060] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.161] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.364] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.465] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.583] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.773] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.871] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:33.972] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.174] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.275] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.377] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.580] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.680] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.781] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:34.983] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.085] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.187] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.389] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.492] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.594] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.796] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.897] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:35.998] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.199] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.301] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.403] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.604] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.707] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:36.807] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.010] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.112] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.213] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.416] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.518] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:45:37.617] [3806] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_m[2026-04-13 13:47:53.888] [4140] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:47:53.900] [4140] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:47:53.901] [4140] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:47:53.901] [4140] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:47:53.911] [4140] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:47:53.911] [4140] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.812262 milliseconds
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.111065 milliseconds
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.299914 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307525 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:47:53.929] [4140] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:47:53.930] [4140] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-13 13:47:53.958] [4140] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1[2026-04-13 13:49:52.062] [7145] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:49:52.074] [7145] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:49:52.074] [7145] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:49:52.074] [7145] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:49:52.085] [7145] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:49:52.085] [7145] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:49:52.105] [7145] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.01793 milliseconds
+[2026-04-13 13:49:52.105] [7145] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.310081 milliseconds
+[2026-04-13 13:49:52.105] [7145] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:49:52.105] [7145] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307244 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:49:52.105] [7145] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.315726 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:49:52.106] [7145] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-13 13:49:52.134] [7145] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1)[2026-04-13 13:52:02.125] [7483] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:52:02.138] [7483] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:52:02.138] [7483] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:52:02.138] [7483] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:52:02.149] [7483] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:52:02.149] [7483] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:52:02.167] [7483] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.884633 milliseconds
+[2026-04-13 13:52:02.167] [7483] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.183319 milliseconds
+[2026-04-13 13:52:02.167] [7483] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.309057 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.318297 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:52:02.168] [7483] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_activation1 | hw_frame_size: 72576)
+[2026-04-13 13:52:02.194] [7483] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0bfmc_yolo_model_stari_p1/ne_activation_activation1[2026-04-13 13:55:02.771] [7783] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:55:02.782] [7783] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:55:02.782] [7783] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:55:02.782] [7783] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:55:02.793] [7783] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:55:02.793] [7783] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:55:02.811] [7783] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.38178 milliseconds
+[2026-04-13 13:55:02.811] [7783] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.672224 milliseconds
+[2026-04-13 13:55:02.811] [7783] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:55:02.812] [7783] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 1.773942 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 1.785553 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:55:02.814] [7783] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 13:56:51.156] [8094] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:56:51.168] [8094] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:56:51.169] [8094] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:56:51.169] [8094] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:56:51.179] [8094] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:56:51.179] [8094] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:56:51.197] [8094] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.938978 milliseconds
+[2026-04-13 13:56:51.197] [8094] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.242014 milliseconds
+[2026-04-13 13:56:51.197] [8094] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:56:51.197] [8094] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.310906 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.321554 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:56:51.198] [8094] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation[2026-04-13 13:58:44.527] [11547] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 13:58:44.538] [11547] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 13:58:44.538] [11547] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 13:58:44.538] [11547] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 13:58:44.549] [11547] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 13:58:44.549] [11547] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 13:58:44.567] [11547] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.839228 milliseconds
+[2026-04-13 13:58:44.567] [11547] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.124448 milliseconds
+[2026-04-13 13:58:44.567] [11547] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:58:44.567] [11547] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.31124 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.320795 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 13:58:44.568] [11547] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_s[2026-04-13 14:02:51.985] [11927] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:02:51.998] [11927] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:02:51.998] [11927] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:02:51.998] [11927] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:02:52.009] [11927] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:02:52.009] [11927] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:02:52.026] [11927] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.596655 milliseconds
+[2026-04-13 14:02:52.026] [11927] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 22.883219 milliseconds
+[2026-04-13 14:02:52.026] [11927] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.312268 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.323028 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:02:52.027] [11927] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:03:49.275] [12184] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:03:49.286] [12184] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:03:49.286] [12184] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:03:49.286] [12184] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:03:49.298] [12184] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:03:49.298] [12184] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:03:49.315] [12184] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.055591 milliseconds
+[2026-04-13 14:03:49.315] [12184] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.356154 milliseconds
+[2026-04-13 14:03:49.315] [12184] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307675 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.319046 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:03:49.316] [12184] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:07:06.852] [12445] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:07:06.864] [12445] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:07:06.865] [12445] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:07:06.865] [12445] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:07:06.876] [12445] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:07:06.876] [12445] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:07:06.893] [12445] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.776931 milliseconds
+[2026-04-13 14:07:06.893] [12445] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.057509 milliseconds
+[2026-04-13 14:07:06.893] [12445] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.316561 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.328932 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:07:06.894] [12445] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:07:06.895] [12445] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:08:43.014] [12770] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:08:43.026] [12770] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:08:43.026] [12770] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:08:43.026] [12770] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:08:43.037] [12770] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:08:43.037] [12770] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:08:43.055] [12770] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.768149 milliseconds
+[2026-04-13 14:08:43.055] [12770] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.054246 milliseconds
+[2026-04-13 14:08:43.055] [12770] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:08:43.055] [12770] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.307411 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.317782 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:08:43.056] [12770] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:11:49.670] [13131] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:11:49.682] [13131] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:11:49.682] [13131] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:11:49.682] [13131] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:11:49.695] [13131] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:11:49.695] [13131] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:11:49.712] [13131] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.203745 milliseconds
+[2026-04-13 14:11:49.713] [13131] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.369348 milliseconds
+[2026-04-13 14:11:49.713] [13131] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:11:49.713] [13131] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.320022 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.332058 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:11:49.714] [13131] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:14:53.750] [13451] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:14:53.762] [13451] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:14:53.762] [13451] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:14:53.762] [13451] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:14:53.773] [13451] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:14:53.773] [13451] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:14:53.790] [13451] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.770739 milliseconds
+[2026-04-13 14:14:53.790] [13451] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.058036 milliseconds
+[2026-04-13 14:14:53.791] [13451] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:14:53.791] [13451] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:14:53.791] [13451] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.310965 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:14:53.791] [13451] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.323465 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:14:53.792] [13451] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:16:07.923] [13817] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:16:07.934] [13817] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:16:07.934] [13817] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:16:07.934] [13817] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:16:07.945] [13817] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:16:07.946] [13817] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:16:07.965] [13817] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 25.136244 milliseconds
+[2026-04-13 14:16:07.965] [13817] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.433597 milliseconds
+[2026-04-13 14:16:07.965] [13817] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.377613 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.389687 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:16:07.966] [13817] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:16:07.967] [13817] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:21:59.457] [14168] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:21:59.469] [14168] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:21:59.469] [14168] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:21:59.469] [14168] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:21:59.480] [14168] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:21:59.480] [14168] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:21:59.498] [14168] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.164916 milliseconds
+[2026-04-13 14:21:59.498] [14168] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.465083 milliseconds
+[2026-04-13 14:21:59.498] [14168] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:21:59.498] [14168] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.312482 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.322538 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:21:59.499] [14168] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 14:25:47.737] [14472] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 14:25:47.749] [14472] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 14:25:47.749] [14472] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 14:25:47.749] [14472] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 14:25:47.760] [14472] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 14:25:47.760] [14472] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 14:25:47.778] [14472] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 22.848054 milliseconds
+[2026-04-13 14:25:47.778] [14472] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.130999 milliseconds
+[2026-04-13 14:25:47.778] [14472] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:25:47.778] [14472] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.306 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.315815 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 14:25:47.779] [14472] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_sta[2026-04-13 16:27:36.402] [7180] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:27:36.414] [7180] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:27:36.414] [7180] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:27:36.414] [7180] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:27:36.433] [7180] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:27:36.433] [7180] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:27:36.452] [7180] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.356272 milliseconds
+[2026-04-13 16:27:36.452] [7180] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.636998 milliseconds
+[2026-04-13 16:27:36.452] [7180] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:27:36.453] [7180] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:27:36.453] [7180] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.319172 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:27:36.453] [7180] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.331042 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:27:36.456] [7180] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:27:36.457] [7180] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:27:36.457] [7180] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:27:36.458] [7180] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation[2026-04-13 16:29:04.362] [7666] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:29:04.374] [7666] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:29:04.374] [7666] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:29:04.374] [7666] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:29:04.386] [7666] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:29:04.386] [7666] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:29:04.405] [7666] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.99449 milliseconds
+[2026-04-13 16:29:04.405] [7666] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 25.279458 milliseconds
+[2026-04-13 16:29:04.405] [7666] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.315136 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.325709 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:29:04.406] [7666] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:29:04.407] [7666] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 16:38:50.116] [8142] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:38:50.128] [8142] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:38:50.129] [8142] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:38:50.129] [8142] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:38:50.140] [8142] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:38:50.140] [8142] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:38:50.158] [8142] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.981429 milliseconds
+[2026-04-13 16:38:50.158] [8142] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.264907 milliseconds
+[2026-04-13 16:38:50.158] [8142] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.316903 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.32794 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:38:50.159] [8142] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:38:50.160] [8142] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 16:39:29.836] [8403] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:39:29.849] [8403] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:39:29.849] [8403] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:39:29.849] [8403] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:39:29.860] [8403] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:39:29.860] [8403] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:39:29.878] [8403] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.084195 milliseconds
+[2026-04-13 16:39:29.879] [8403] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.364803 milliseconds
+[2026-04-13 16:39:29.879] [8403] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:39:29.879] [8403] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.312571 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.324552 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:39:29.880] [8403] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation[2026-04-13 16:41:58.169] [9124] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:41:58.181] [9124] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:41:58.181] [9124] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:41:58.181] [9124] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:41:58.193] [9124] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:41:58.193] [9124] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:41:58.212] [9124] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.490009 milliseconds
+[2026-04-13 16:41:58.212] [9124] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.78049 milliseconds
+[2026-04-13 16:41:58.212] [9124] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:41:58.212] [9124] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.313426 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.324722 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:41:58.213] [9124] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 16:42:16.769] [9399] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:42:16.782] [9399] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:42:16.782] [9399] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:42:16.782] [9399] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:42:16.793] [9399] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:42:16.793] [9399] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:42:16.812] [9399] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.383252 milliseconds
+[2026-04-13 16:42:16.812] [9399] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.665104 milliseconds
+[2026-04-13 16:42:16.812] [9399] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.312092 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.322944 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:42:16.813] [9399] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:42:16.814] [9399] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation[2026-04-13 16:42:52.395] [9811] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:42:52.406] [9811] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:42:52.406] [9811] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:42:52.406] [9811] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:42:52.418] [9811] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:42:52.418] [9811] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:42:52.436] [9811] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.18583 milliseconds
+[2026-04-13 16:42:52.436] [9811] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.462256 milliseconds
+[2026-04-13 16:42:52.436] [9811] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.320148 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.3325 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:42:52.437] [9811] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:42:52.438] [9811] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_ac[2026-04-13 16:43:15.576] [10137] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:43:15.588] [10137] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:43:15.589] [10137] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:43:15.589] [10137] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:43:15.600] [10137] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:43:15.600] [10137] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:43:15.619] [10137] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 24.287169 milliseconds
+[2026-04-13 16:43:15.619] [10137] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 24.564614 milliseconds
+[2026-04-13 16:43:15.619] [10137] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:43:15.619] [10137] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.310057 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.320074 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:43:15.620] [10137] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 16:43:41.382] [10457] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:43:41.394] [10457] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:43:41.394] [10457] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:43:41.394] [10457] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:43:41.407] [10457] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:43:41.407] [10457] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:43:41.428] [10457] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 27.507074 milliseconds
+[2026-04-13 16:43:41.428] [10457] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 27.784723 milliseconds
+[2026-04-13 16:43:41.428] [10457] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.315223 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.326945 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:43:41.429] [10457] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:43:41.430] [10457] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_[2026-04-13 16:45:32.151] [1700] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:45:32.169] [1700] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:45:32.169] [1700] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:45:32.171] [1700] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:45:32.295] [1700] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:45:32.295] [1700] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:45:32.313] [1700] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 28.904226 milliseconds
+[2026-04-13 16:45:32.313] [1700] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 29.606396 milliseconds
+[2026-04-13 16:45:32.313] [1700] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:45:32.313] [1700] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:45:32.314] [1700] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.33247 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:45:32.314] [1700] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.342214 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:45:32.315] [1700] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:45:32.316] [1700] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:45:32.316] [1700] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:45:32.316] [1700] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:45:32.317] [1700] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 16:48:34.341] [1819] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 16:48:34.358] [1819] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 16:48:34.358] [1819] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 16:48:34.359] [1819] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 16:48:34.483] [1819] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 16:48:34.483] [1819] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 16:48:34.502] [1819] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 30.047908 milliseconds
+[2026-04-13 16:48:34.502] [1819] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 30.75213 milliseconds
+[2026-04-13 16:48:34.502] [1819] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:48:34.503] [1819] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 16:48:34.503] [1819] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.350907 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:48:34.503] [1819] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 0.362074 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 16:48:34.504] [1819] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 16:48:34.505] [1819] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 16:48:34.505] [1819] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 16:48:34.505] [1819] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 16:48:34.506] [1819] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_[2026-04-13 17:00:19.427] [1958] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-04-13 17:00:19.444] [1958] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-04-13 17:00:19.445] [1958] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-04-13 17:00:19.446] [1958] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-04-13 17:00:19.574] [1958] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=851968 Pinned=594432. memory to edge layer usage factor is 0.7135833
+[2026-04-13 17:00:19.574] [1958] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-04-13 17:00:19.593] [1958] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 30.137936 milliseconds
+[2026-04-13 17:00:19.593] [1958] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 30.852499 milliseconds
+[2026-04-13 17:00:19.593] [1958] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 17:00:19.597] [1958] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: bfmc_yolo_model_stari_p1
+[2026-04-13 17:00:19.598] [1958] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 1.022277 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 17:00:19.598] [1958] [HailoRT] [info] [core_op.cpp:156] [activate] Activating bfmc_yolo_model_stari_p1 took 1.08832 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-04-13 17:00:19.600] [1958] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368)
+[2026-04-13 17:00:19.600] [1958] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating bfmc_yolo_model_stari_p1/input_layer1...
+[2026-04-13 17:00:19.600] [1958] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'bfmc_yolo_model_stari_p1/input_layer1': (HwWriteEl4bfmc_yolo_model_stari_p1/input_layer1 | hw_frame_size: 442368) >> HW
+[2026-04-13 17:00:19.601] [1958] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536)
+[2026-04-13 17:00:19.601] [1958] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14)
+[2026-04-13 17:00:19.601] [1958] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64))
+[2026-04-13 17:00:19.602] [1958] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 17:00:19.602] [1958] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating bfmc_yolo_model_stari_p1/concat14...
+[2026-04-13 17:00:19.602] [1958] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'bfmc_yolo_model_stari_p1/concat14': HW >> (HwReadEl14bfmc_yolo_model_stari_p1/concat14 | hw_frame_size: 193536) >> (PullQEl_hw_read14bfmc_yolo_model_stari_p1/concat14) >> (PostInferEl14bfmc_yolo_model_stari_p1/concat14 | Reorder - src_order: NHCW, src_shape: (1, 3024, 64), dst_order: NHWC, dst_shape: (1, 3024, 64)) >> (UserBuffQEl14bfmc_yolo_model_stari_p1/concat14 | timeout: 10s)
+[2026-04-13 17:00:19.602] [1958] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0bfmc_yolo_model_stari_p1/ne_activation_

@@ -341,3 +341,9 @@ class MyStateChange(Enum):
     Owner = "test"
     msgID = "3"
     msgType = "str"
+
+class turnOnLED(Enum):
+    Queue = "General"
+    Owner = "threadWS2812"
+    msgID = "1"
+    msgType = "str"

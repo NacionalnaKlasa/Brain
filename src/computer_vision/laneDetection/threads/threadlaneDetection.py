@@ -103,13 +103,15 @@ class threadlaneDetection(ThreadWithStop):
         lines, stop_lines = self.processing.apply_hough(roi)
 
         left_avg, right_avg = self.processing.average_lines(lines)
-        stop_line = self.processing.fit_stop_line(stop_lines, frame.shape[1])
+        # stop_line = self.processing.fit_stop_line(stop_lines, frame.shape[1])
 
         # Postprocessing
         # Calculating error and angle to send for servo motors
         lane_center = self.postprocessing.calculate_lane_center(left_avg, right_avg)
+
         # Prevent from accumulation of integral action
         steering, car_center, y_offset = self.check_state_and_call_control(lane_center, frame.shape[1], frame.shape[0])
+        
         ####### VERY IMPORTANT TO SEND
         self.sendSteering(steering)
         ####### VERY IMPORTANT TO SEND

@@ -78,6 +78,7 @@ from src.computer_vision.laneDetection.processlaneDetection import processlaneDe
 from src.computer_vision.signDetection.processsignDetection import processsignDetection
 from src.statemachine.FSM.processFSM import processFSM
 from src.localization.localization.processlocalization import processlocalization
+from src.hardware.ws2812.processws2812 import processws2812
 
 # ------ New component imports ends here ------#
 
@@ -149,6 +150,7 @@ start_laneDetection = True
 start_signDetection = True
 start_FSM = True
 start_localization = False
+start_ws2812 = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -212,6 +214,11 @@ if start_localization:
     localization_ready = Event()
     processlocalization = processlocalization(queueList, logging, localization_ready, debugging = False)
     allProcesses.insert(0, processlocalization)
+
+if start_ws2812:
+    ws2812_ready = Event()
+    processws2812 = processws2812(queueList, logging, ws2812_ready, debugging = False)
+    allProcesses.insert(0, processws2812)
 
 # ------ New component initialize ends here ------#
 

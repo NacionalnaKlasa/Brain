@@ -13,6 +13,10 @@ from ultralytics import YOLO
 from src.computer_vision.signDetection.threads.config import SignConfig
 from src.computer_vision.signDetection.threads.config import OBJECT_TYPES, Types
 
+###########################
+from src.computer_vision.signDetection.threads.hailo_inference import HailoYOLO
+###########################
+
 class threadsignDetection(ThreadWithStop):
     """This thread handles signDetection.
     Args:
@@ -27,10 +31,11 @@ class threadsignDetection(ThreadWithStop):
         self.debugging = debugging
 
         self.config = SignConfig()
-        print(self.config.Model.model_path)
-        self.model = YOLO(self.config.Model.model_path)
-        self.classes = self.config.Classes.classes
+        #print(self.config.Model.model_path)
         self.conf_threshold = self.config.Model.conf_threshold
+        self.model = YOLO(self.config.Model.model_path)
+        #self.model = HailoYOLO(self.config.Model.model_hef_path, conf_threshold=self.conf_threshold)
+        self.classes = self.config.Classes.classes
         self.alpha = self.config.Model.alpha
 
         self.FPS = self.config.FPS
@@ -80,6 +85,7 @@ class threadsignDetection(ThreadWithStop):
         """
         # results = self.model(frame, imgsz=512, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
         results = self.model(frame, imgsz=512, conf=self.conf_threshold, verbose=False)
+        #print(results)
         #results = self.model(frame, conf=self.conf_threshold, classes=list(self.classes.keys()), verbose=False)
        
         #FOCAL_LENGTH = (h_px × udaljenost) / realna_visina
@@ -102,12 +108,16 @@ class threadsignDetection(ThreadWithStop):
                 h_px = y2 - y1
                 w_px = x2 - x1
                 x_center = (x1 + x2) / 2
+                # print("xyxy[0]:", box.xyxy[0])
+                # print("conf[0]:", box.conf[0])
+                # print("cls[0]:", box.cls[0])
 
                 if h_px < MIN_HEIGHT_PX:
                     continue
                 
                 class_id = int(box.cls[0])
                 class_name = self.model.names[class_id]
+                # print(class_name)
                 
                 if class_name in OBJECT_TYPES.get(Types.SIGN):
                     distance = (SIGN_REAL_HEIGHT * FOCAL_LENGTH) / h_px

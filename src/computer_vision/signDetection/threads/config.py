@@ -4,8 +4,10 @@ from enum import Enum, auto
 
 @dataclass(frozen=True)
 class YOLOModel:
-    model_path: str = "/home/pi/Documents/Brain/src/computer_vision/signDetection/models/yolov8n_004/best.pt"
+    # model_path: str = "/home/pi/Documents/Brain/src/computer_vision/signDetection/models/yolov8n_004/best.pt"
+    model_path: str = "/home/pi/Documents/Brain/src/computer_vision/signDetection/models/yolo_test/best13Aprl.pt"
     # model_path: str = "/home/pi/Documents/Brain/src/computer_vision/signDetection/models/yolov8n-seg_best.pt"
+    model_hef_path = "/home/pi/Documents/HEFmodels/bfmc_yolo_model_stari_p1.hef"
     conf_threshold: float = 0.4
     alpha = 0.2 # Tolerance for position of stop line when it is detected
 

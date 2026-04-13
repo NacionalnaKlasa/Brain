@@ -63,4 +63,12 @@ def stateCallback_followLine(engine: engine):
         if signParts[0] in OBJECT_TYPES[Types.TRAFFIC_LIGHT] and float(signParts[2]) < 60 and signParts[0] not in forbiden_states:
             params = {"light": signParts[0]}
             engine.setState(States.TRAFIC_LIGHT, params)
+
+        if signParts[0] == OBJECT_CLASSES[States.ROUNDABOUT] and float(signParts[2]) < 27 and signParts[0] not in forbiden_states:
+            print("ROUNDABOUT")
+            engine.setState(States.ROUNDABOUT)
+
+        if signParts[0] == OBJECT_CLASSES[States.CAR] and float(signParts[2]) < 27 and signParts[0] not in forbiden_states:
+            print("CAR")
+            engine.setState(States.CAR)
         

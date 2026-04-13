@@ -3,6 +3,9 @@ from src.utils.messages.allMessages import (Klem, SteerMotor, CurrentSteer, Stat
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
+from libraries.udp_broadcast.udp.types import DATA_TYPES
+from libraries.udp_broadcast.udp.udp_receiver import UDP_Receiver
+
 import time
 
 class threadtestSteering(ThreadWithStop):
@@ -18,18 +21,11 @@ class threadtestSteering(ThreadWithStop):
         self.logging = logging
         self.debugging = debugging
 
-        self.angle = 0
-        self.new_angle = 0
-
-        self.speed = 0
-        self.new_speed = 0
-
-        self.autoSpeed = 260
-        self.running = False
-
         time.sleep(5)
         self._init_subscribes()
         self._init_senders()
+        self.udp = UDP_Receiver(port=9999)
+        print("INITIALIZING TEST STEERING")
         super(threadtestSteering, self).__init__()
 
     def _init_subscribes(self):
@@ -44,67 +40,30 @@ class threadtestSteering(ThreadWithStop):
         """Subscribes to send the messages you are interested in."""
         self.setKlemSender = messageHandlerSender(self.queuesList, Klem)
         self.setSteeringAngleSender = messageHandlerSender(self.queuesList, SteerMotor)
-        self.SpeedMotorSend = messageHandlerSender(self.queuesList, SpeedMotor)
-        pass
 
     def state_change_handler(self):
         pass
 
     def thread_work(self):
-        # Reading Klem from nucleo
-        rec = self.KlemReceive.receive()
-        if rec is not None:
-            print("Current klem from nucleo: ", rec)
-
-        # Reading Angle from nucleo
-        rec = self.currentSteeringAngle.receive()
-        if rec is not None:
-            print("Current angle from nucleo: ", rec)
-
-        # Reading Speed from nucleo
-        rec = self.SpeedMotorReceive.receive()
-        if rec is not None:
-            print("Current speed from nucleo: ", rec)
-            self.speed = int(rec)
-
-        # Receiving calculated angle from computer vision
-        rec = self.calculatedSteeringAngle.receive()
-        if rec is not None:
-            if self.running:
-                self.new_angle = int(rec)
-
-        # Sending Angle and Speed on nucleo if runnig is enabled
-        if self.running == True:
-            if self.new_angle != self.angle:
-                self.sendSteer(self.new_angle)
-                self.angle = self.new_angle
-
-            if self.speed != self.new_speed:
-                self.sendSpeed(self.new_speed)
-
-        # Reading MODE from Dashboard
-        rec = self.DrivingMode.receive()
-        if rec is not None:
-            print(rec)
-            if rec == "AUTO":
-                self.sendKlem(30)
-                self.running = True
-                self.SpeedMotorSend.send(str(self.autoSpeed))
-                self.new_speed = self.autoSpeed
-
-            elif rec == "STOP":
-                self.new_speed = 0
-                self.sendKlem(0)
-                self.running = False
+        data, data_type = self.udp.recv()
+        if data is not None and data_type is not None:
+            print(f"Data type: {data_type}\nData: {data}\n")
+            
+            if data_type == DATA_TYPES.STRING:
+                parts = data.split(":")
+                
+                if len(parts) == 2:
+                    print(data)
+                    if parts[0] == "kl":
+                        self.sendKlem(parts[1])
+                        
+                    elif parts[0] == "angle":
+                        self.sendSteer(parts[1])
+            
+        time.sleep(0.005)
 
     def sendKlem(self, klMode):
-        # print("I guess I sent klem ", klMode)
         self.setKlemSender.send(str(klMode))
 
     def sendSteer(self, angle):
-        # print("I guess I sent angle", angle)
         self.setSteeringAngleSender.send(str(angle))
-
-    def sendSpeed(self, speed):
-        # print("I guess I sent speed", speed)
-        self.SpeedMotorSend.send(str(speed))

@@ -73,6 +73,8 @@ class engine:
 
         self.stateParameters = {}
         self.counter = 0
+
+        self.counterRoundabout = 0
         
         self.highway = 0
         
