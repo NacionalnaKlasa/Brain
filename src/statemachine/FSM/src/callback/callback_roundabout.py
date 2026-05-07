@@ -4,26 +4,26 @@ from src.statemachine.FSM.src.states import States, OBJECT_CLASSES
 from src.statemachine.FSM.src.callback.common.follow_line import follow_line
 
 __desiredSpeed = 200
-__desiredExit : int = [2, 1, 3, 4, 2, 1, 3, 4]
+__desiredExit : int = [3, 3, 3, 3, 2, 1, 3, 4]
 
 _startTime: float = 0
 
-_time_first_exit : float = 3.5
-_time_second_exit : float = 7
-_time_third_exit : float = 3 * _time_first_exit
+_time_first_exit : float = 2.5
+_time_second_exit : float = 2 *_time_first_exit
+_time_third_exit : float = 4.4 * _time_first_exit
 _time_fourth_exit : float = 4 * _time_first_exit
 
 _last_time_saw_roundabout : float = 0
-_last_time_saw_roundabout_threshold : float = 1
+_last_time_saw_roundabout_threshold : float = 1.5
 
 _start_roundabout = False
 _counter_done : int = 0
 
 _time_right_turn_extraction_treshold : float = 2
 
-_time_right_turn_inclusion_treshold : float = 2
+_time_right_turn_inclusion_treshold : float = 2.8
 
-_angle_for_inclusion_and_extraction : int = 200
+_angle_for_inclusion_and_extraction : int = 250
 
 _temp : bool = False
 
@@ -92,8 +92,8 @@ def go(_time, engine:engine):
     global _startTime, _time_right_turn_inclusion_treshold
 
     if time.perf_counter() - _startTime  <= _time:
-        engine.setAngle(-250);
-        # follow_line(engine)
+        engine.setAngle(-250)
+        #follow_line(engine)
     else:
         exit_roundabout(_time, engine)
 

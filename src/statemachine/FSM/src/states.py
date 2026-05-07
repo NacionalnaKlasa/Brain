@@ -54,7 +54,7 @@ OBJECT_CLASSES = {
     States.TRAFIC_LIGHT_RED: "lightRed",
     States.TRAFIC_LIGHT_RED_YELLOW: "lightRedYellos",
     States.STOP_LINE: "stopLine",
-    States.CAR: "car",
+    States.CAR: "zCar",
 
     States.PARKING_SPOT: "parkingSpot"
 }

@@ -11,6 +11,8 @@ navigation = [States.INTERSECTION_STRAIGHT, States.INTERSECTION_RIGHT, States.IN
 # navigation = [States.INTERSECTION_RIGHT, States.INTERSECTION_RIGHT]
 counterModuo = len(navigation)
 
+counter = 0
+
 def Enter_intersection(engine: engine):
     engine.setKlem(30)
     print("ENTER INTERSECTION")
@@ -20,6 +22,7 @@ def Execute_intersection(engine: engine):
     #engine.setState(States.INTERSECTION_RIGHT)
     nextState = navigation[engine.counter % counterModuo]
     engine.counter += 1
+    counter = engine.counter
     
     if engine.counter == 4:
         engine.highway = 0

@@ -68,7 +68,8 @@ def stateCallback_followLine(engine: engine):
             print("ROUNDABOUT")
             engine.setState(States.ROUNDABOUT)
 
-        if signParts[0] == OBJECT_CLASSES[States.CAR] and float(signParts[2]) < 27 and signParts[0] not in forbiden_states:
+        if signParts[0] == OBJECT_CLASSES[States.CAR] and float(signParts[2]) < 43 and signParts[0] not in forbiden_states:
             print("CAR")
+            # u if potrebno dodati uslov za proveru udaljenosti preko TOF senzora
             engine.setState(States.CAR)
         

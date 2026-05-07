@@ -215,3 +215,6 @@ class engine:
         
     def getLastSign(self):
         return self.lastSign
+    
+    def getCounter(self):
+        return self.counter

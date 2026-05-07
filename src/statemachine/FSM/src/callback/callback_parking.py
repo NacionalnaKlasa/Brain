@@ -20,11 +20,11 @@ _desiredAngle_step_1_park_out : int = 0
 _desiredAngle_step_2_park_out : int = -220
 
 _startTime: float = 0
-# _time_park_in_forward : int = 6e9
-_time_park_in_forward : float = 6.8
+# _time_park_in_forward : int = 8e9
+_time_park_in_forward : float = 8
 
-# _time_park_in_back_right : int = 2.5e9
-_time_park_in_back_right : float = 2.5
+# _time_park_in_back_right : int = 3.1e9
+_time_park_in_back_right : float = 3.1
 
 # _time_park_in_back_left : int = 4e9
 _time_park_in_back_left : float = 4
@@ -32,11 +32,11 @@ _time_park_in_back_left : float = 4
 # _time_park_in_spot_forward : int = 1e9
 _time_park_in_spot_forward : float = 1
 
-# __time_park_out_spot_back : int = 1e9
-__time_park_out_spot_back : float = 1
+# __time_park_out_spot_back : int = 1.5e9
+__time_park_out_spot_back : float = 1.5
 
-# _time_park_out_forward_left : int = 1.5e9
-_time_park_out_forward_left : float = 2.6
+# _time_park_out_forward_left : int = 2.1e9
+_time_park_out_forward_left : float = 2.1
 
 # _time_to_stay_on_spot: int = 3e9
 _time_to_stay_on_spot: float = 3
