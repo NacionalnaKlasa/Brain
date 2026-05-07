@@ -1,5 +1,8 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (Klem, SteerMotor, CurrentSteer, StateChange, CalculatedAngle, SpeedMotor, CurrentSpeed)
+from src.utils.messages.allMessages import (
+    Klem, SteerMotor, CurrentSteer, StateChange, CalculatedAngle, SpeedMotor, CurrentSpeed,
+    TofMeasurement
+     )
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -35,6 +38,8 @@ class threadtestSteering(ThreadWithStop):
         self.DrivingMode = messageHandlerSubscriber(self.queuesList, StateChange, "lastOnly", True)
         self.calculatedSteeringAngle = messageHandlerSubscriber(self.queuesList, CalculatedAngle, "lastOnly", True)
         self.SpeedMotorReceive = messageHandlerSubscriber(self.queuesList, CurrentSpeed, "lastOnly", True)
+
+        self.tofReceiver = messageHandlerSubscriber(self.queuesList, TofMeasurement, 'lastOnly', True)
     
     def _init_senders(self):
         """Subscribes to send the messages you are interested in."""
@@ -45,22 +50,27 @@ class threadtestSteering(ThreadWithStop):
         pass
 
     def thread_work(self):
-        data, data_type = self.udp.recv()
-        if data is not None and data_type is not None:
-            print(f"Data type: {data_type}\nData: {data}\n")
+        recv = self.tofReceiver.receive()
+        if recv is not None:
+            # print("omg")
+            # print(recv)
+            pass
+        # data, data_type = self.udp.recv()
+        # if data is not None and data_type is not None:
+        #     print(f"Data type: {data_type}\nData: {data}\n")
             
-            if data_type == DATA_TYPES.STRING:
-                parts = data.split(":")
+        #     if data_type == DATA_TYPES.STRING:
+        #         parts = data.split(":")
                 
-                if len(parts) == 2:
-                    print(data)
-                    if parts[0] == "kl":
-                        self.sendKlem(parts[1])
+        #         if len(parts) == 2:
+        #             print(data)
+        #             if parts[0] == "kl":
+        #                 self.sendKlem(parts[1])
                         
-                    elif parts[0] == "angle":
-                        self.sendSteer(parts[1])
+        #             elif parts[0] == "angle":
+        #                 self.sendSteer(parts[1])
             
-        time.sleep(0.005)
+        # time.sleep(0.005)
 
     def sendKlem(self, klMode):
         self.setKlemSender.send(str(klMode))
