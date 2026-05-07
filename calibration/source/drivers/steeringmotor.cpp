@@ -33,8 +33,8 @@
 #define scaling_factor_1 10
 #define scaling_factor_2 100
 #define calibrated 1
-#define calib_sup_limit 191
-#define calib_inf_limit -154
+#define calib_sup_limit 226
+#define calib_inf_limit -196
 
 namespace drivers{
     /**
@@ -155,16 +155,16 @@ namespace drivers{
         // POLYNOMIAL CODE START
 
         // Cubic spline evaluation with 8 segments
-        static const int64_t knots[9] = {-159, -114, -74, -35, 0, 30, 85, 122, 176};
+        static const int64_t knots[9] = {-212, -184, -128, -61, 0, 30, 91, 138, 210};
         static const int64_t coeffs[8][4] = { 
-            {-105LL, 0LL, 3270179LL, 1210056704LL},
-            {141LL, -14150LL, 2634660LL, 1347420160LL},
-            {54LL, 2847LL, 2179887LL, 1439694848LL},
-            {-106LL, 9160LL, 2646877LL, 1531969536LL},
-            {-242LL, -2211LL, 2895798LL, 1633681408LL},
-            {269LL, -24072LL, 2103712LL, 1712324608LL},
-            {-240LL, 20543LL, 1908940LL, 1800404992LL},
-            {38LL, -6221LL, 2441392LL, 1887436800LL}
+            {-2871LL, 0LL, 17926710LL, 838860800LL},
+            {1773LL, -246398LL, 10877462LL, 1284505600LL},
+            {-271LL, 51627LL, -33895LL, 1432354816LL},
+            {41LL, -2948LL, 3239392LL, 1581252608LL},
+            {-217LL, 4499LL, 3334100LL, 1777336320LL},
+            {113LL, -15594LL, 2992152LL, 1877999616LL},
+            {237LL, 4847LL, 2341883LL, 2026897408LL},
+            {-180LL, 38635LL, 4410226LL, 2174746624LL}
         };
         
         // Find the correct segment
