@@ -62,8 +62,8 @@ from src.gateway.processGateway import processGateway
 from src.dashboard.processDashboard import processDashboard
 from src.hardware.camera.processCamera import processCamera
 from src.hardware.serialhandler.processSerialHandler import processSerialHandler
-# from src.data.Semaphores.processSemaphores import processSemaphores
-# from src.data.TrafficCommunication.processTrafficCommunication import processTrafficCommunication
+from src.data.Semaphores.processSemaphores import processSemaphores
+from src.data.TrafficCommunication.processTrafficCommunication import processTrafficCommunication
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.allMessages import StateChange
 from src.statemachine.stateMachine import StateMachine
@@ -79,6 +79,7 @@ from src.computer_vision.signDetection.processsignDetection import processsignDe
 from src.statemachine.FSM.processFSM import processFSM
 from src.localization.localization.processlocalization import processlocalization
 from src.hardware.ws2812.processws2812 import processws2812
+from src.localization.local.processlocal import processlocal
 
 # ------ New component imports ends here ------#
 
@@ -144,13 +145,14 @@ processGateway = processGateway(queueList, logging)
 processGateway.start()
 
 start_testPosaljiUgao_process = False
-start_testSteering_process = False
+start_testSteering_process = True
 start_flask_app = True
 start_laneDetection = True
 start_signDetection = True
 start_FSM = True
-start_localization = False
+start_localization = True
 start_ws2812 = True
+start_local_localization = True
 
 # ===================================== INITIALIZE PROCESSES ==================================
 
@@ -163,20 +165,20 @@ camera_ready = Event()
 processCamera = processCamera(queueList, logging, camera_ready, debugging = False)
 
 # Initializing semaphores
-# semaphore_ready = Event()
-# processSemaphore = processSemaphores(queueList, logging, semaphore_ready, debugging = False)
+semaphore_ready = Event()
+processSemaphore = processSemaphores(queueList, logging, semaphore_ready, debugging = True)
 
-# # Initializing GPS
-# traffic_com_ready = Event()
-# processTrafficCom = processTrafficCommunication(queueList, logging, 3, traffic_com_ready, debugging = False)
+# Initializing GPS
+traffic_com_ready = Event()
+processTrafficCom = processTrafficCommunication(queueList, logging, 3, traffic_com_ready, debugging = True)
 
 # Initializing serial connection NUCLEO - > PI
 serial_handler_ready = Event()
 processSerialHandler = processSerialHandler(queueList, logging, serial_handler_ready, dashboard_ready, debugging = False)
 
 # Adding all processes to the list
-allProcesses.extend([processCamera, processSerialHandler, processDashboard])
-allEvents.extend([camera_ready, serial_handler_ready, dashboard_ready])
+allProcesses.extend([processCamera, processSerialHandler, processDashboard, processSemaphore])
+allEvents.extend([camera_ready, serial_handler_ready, dashboard_ready,semaphore_ready])
 
 # ------ New component initialize starts here ------#
 
@@ -219,6 +221,11 @@ if start_ws2812:
     ws2812_ready = Event()
     processws2812 = processws2812(queueList, logging, ws2812_ready, debugging = False)
     allProcesses.insert(0, processws2812)
+
+if start_local_localization:
+    local_ready = Event()
+    processlocal = processlocal(queueList, logging, local_ready, debugging = False)
+    allProcesses.insert(0, processlocal)
 
 # ------ New component initialize ends here ------#
 
