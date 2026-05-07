@@ -6,7 +6,7 @@ class Localization:
     def __init__(self):
 
         self.CAR_PORT = 5005
-        self.PC_IP = "192.168.50.102"
+        self.PC_IP = "192.168.50.100"
         self.PC_PORT = 5006
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
