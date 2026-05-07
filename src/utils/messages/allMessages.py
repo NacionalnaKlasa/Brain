@@ -347,3 +347,21 @@ class turnOnLED(Enum):
     Owner = "threadWS2812"
     msgID = "1"
     msgType = "str"
+
+class TestTofSender(Enum):
+    Queue = "General"
+    Owner = "threadTof"
+    msgID = "1"
+    msgType = "str"
+
+class TofMeasurement(Enum):
+    Queue = "General"
+    Owner = "threadTof"
+    msgID = "1"
+    msgType = "str"
+
+class LightWs2812(Enum):
+    Queue = "General"
+    Owner = "threadWS2812"
+    msgID = "2"
+    msgType = "str"

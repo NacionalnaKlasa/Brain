@@ -48,7 +48,10 @@ from src.utils.messages.allMessages import (
     CalibPWMData,
     CalibRunDone,
     SteeringLimits,
-    AliveSignal
+    AliveSignal,
+    TestTofSender,
+    LightWs2812,
+    TofMeasurement
 )
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -76,7 +79,7 @@ class threadRead(ThreadWithStop):
 
         self.expectedValues = {"kl": "0, 15 or 30", "instant": "1 or 0", "battery": "1 or 0",
                                "resourceMonitor": "1 or 0", "imu": "1 or 0", "steer" : "between -25 and 25",
-                               "speed": "between -500 and 500", "break": "between -250 and 250"}
+                               "speed": "between -500 and 500", "break": "between -250 and 250", "tof":"hello"}
 
         self.warningPattern = r'^(-?[0-9]+)H(-?[0-5]?[0-9])M(-?[0-5]?[0-9])S$'
         self.resourceMonitorPattern = r'Heap \((\d+\.\d+)\);Stack \((\d+\.\d+)\)'
@@ -102,6 +105,10 @@ class threadRead(ThreadWithStop):
         self.calibRunDoneSender = messageHandlerSender(self.queuesList, CalibRunDone)
         self.steeringLimitsSender = messageHandlerSender(self.queuesList, SteeringLimits)
         self.aliveSignalSender = messageHandlerSender(self.queuesList, AliveSignal)
+
+        self.testTofSender = messageHandlerSender(self.queuesList, TestTofSender)
+
+        self.tofSender = messageHandlerSender(self.queuesList, TofMeasurement)
 
     # ====================================== RUN ==========================================
     def thread_work(self):
@@ -227,6 +234,12 @@ class threadRead(ThreadWithStop):
                 print(f"\033[1;97m[ Serial Handler ] :\033[0m \033[1;93mWARNING\033[0m - \033[94mShutting down now!\033[0m")
                 self.event.wait(3)
                 os.system("sudo shutdown -h now")
+
+            elif action == "tof":
+                # print("OMGGGG DOBIO SAM TOFFFF: " + value)
+                self.tofSender.send(value)
+                # if self.check_valid_value(action, value):
+                #     print("OMGGGG DOBIO SAM TOFFFF: " + value)
             
     def check_valid_value(self, action, message):
         if message == "syntax error":
