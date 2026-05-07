@@ -1,5 +1,5 @@
 from src.templates.threadwithstop import ThreadWithStop
-from src.utils.messages.allMessages import (serialCamera, laneDetectionFrame, CalculatedAngle, StateChange)
+from src.utils.messages.allMessages import (serialCamera, laneDetectionFrame, CalculatedAngle, StateChange, laneDetection)
 from src.utils.messages.messageHandlerSubscriber import messageHandlerSubscriber
 from src.utils.messages.messageHandlerSender import messageHandlerSender
 
@@ -42,6 +42,7 @@ class threadlaneDetection(ThreadWithStop):
     def subscribe_senders(self):
         self.cameraSender = messageHandlerSender(self.queuesList, laneDetectionFrame)
         self.steeringSender = messageHandlerSender(self.queuesList, CalculatedAngle)
+        self.laneSnapSender = messageHandlerSender(self.queuesList, laneDetection)
 
     def subscribe(self):
         """Subscribes to the messages you are interested in"""
@@ -103,6 +104,10 @@ class threadlaneDetection(ThreadWithStop):
         lines, stop_lines = self.processing.apply_hough(roi)
 
         left_avg, right_avg = self.processing.average_lines(lines)
+        
+        # Salje signal lokalizaciji kada su vidljive obe linije
+        if left_avg is not None and right_avg is not None:
+            self.laneSnapSender.send("in_lane")
         # stop_line = self.processing.fit_stop_line(stop_lines, frame.shape[1])
 
         # Postprocessing
